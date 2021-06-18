@@ -1,0 +1,563 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ShoppingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="GoodsID" />
+          </Key>
+          <Property Name="GoodsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="GoodsName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Stock" Type="int" />
+          <Property Name="IsShow" Type="bit" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="GoodsPic" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GoodsCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="ParentPath" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OrderGoods">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" />
+          <Property Name="GoodsID" Type="int" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <EntityType Name="ShoppingCar">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="GoodsID" Type="int" />
+          <Property Name="BuyCount" Type="int" />
+        </EntityType>
+        <EntityType Name="ShoppingOrder">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="OrderNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderTime" Type="datetime" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Province" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Area" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderStatus" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sex" Type="bit" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="HandPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsLock" Type="bit" />
+          <Property Name="LastLoginTime" Type="datetime" />
+          <Property Name="LastLoginIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserAddress">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Province" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Area" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Goods_REFERENCE_GoodsCategory">
+          <End Role="GoodsCategory" Type="Self.GoodsCategory" Multiplicity="0..1" />
+          <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodsCategory">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Goods">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderGoods_REFERENCE_Goods">
+          <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+          <End Role="OrderGoods" Type="Self.OrderGoods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goods">
+              <PropertyRef Name="GoodsID" />
+            </Principal>
+            <Dependent Role="OrderGoods">
+              <PropertyRef Name="GoodsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderGoods_REFERENCE_ShoppingOrder">
+          <End Role="ShoppingOrder" Type="Self.ShoppingOrder" Multiplicity="0..1" />
+          <End Role="OrderGoods" Type="Self.OrderGoods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingOrder">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderGoods">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCar_REFERENCE_Goods">
+          <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+          <End Role="ShoppingCar" Type="Self.ShoppingCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goods">
+              <PropertyRef Name="GoodsID" />
+            </Principal>
+            <Dependent Role="ShoppingCar">
+              <PropertyRef Name="GoodsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCar_REFERENCE_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ShoppingCar" Type="Self.ShoppingCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ShoppingCar">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingOrder_REFERENCE_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ShoppingOrder" Type="Self.ShoppingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ShoppingOrder">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAddress_REFERENCE_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserAddress" Type="Self.UserAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserAddress">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShoppingModelStoreContainer">
+          <EntitySet Name="Goods" EntityType="Self.Goods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoodsCategory" EntityType="Self.GoodsCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderGoods" EntityType="Self.OrderGoods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCar" EntityType="Self.ShoppingCar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingOrder" EntityType="Self.ShoppingOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAddress" EntityType="Self.UserAddress" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Goods_REFERENCE_GoodsCategory" Association="Self.FK_Goods_REFERENCE_GoodsCategory">
+            <End Role="GoodsCategory" EntitySet="GoodsCategory" />
+            <End Role="Goods" EntitySet="Goods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderGoods_REFERENCE_Goods" Association="Self.FK_OrderGoods_REFERENCE_Goods">
+            <End Role="Goods" EntitySet="Goods" />
+            <End Role="OrderGoods" EntitySet="OrderGoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderGoods_REFERENCE_ShoppingOrder" Association="Self.FK_OrderGoods_REFERENCE_ShoppingOrder">
+            <End Role="ShoppingOrder" EntitySet="ShoppingOrder" />
+            <End Role="OrderGoods" EntitySet="OrderGoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCar_REFERENCE_Goods" Association="Self.FK_ShoppingCar_REFERENCE_Goods">
+            <End Role="Goods" EntitySet="Goods" />
+            <End Role="ShoppingCar" EntitySet="ShoppingCar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCar_REFERENCE_User" Association="Self.FK_ShoppingCar_REFERENCE_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ShoppingCar" EntitySet="ShoppingCar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingOrder_REFERENCE_User" Association="Self.FK_ShoppingOrder_REFERENCE_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ShoppingOrder" EntitySet="ShoppingOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAddress_REFERENCE_User" Association="Self.FK_UserAddress_REFERENCE_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserAddress" EntitySet="UserAddress" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShoppingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="GoodsID" />
+          </Key>
+          <Property Name="GoodsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="GoodsName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Stock" Type="Int32" />
+          <Property Name="IsShow" Type="Boolean" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GoodsPic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="GoodsCategory" Relationship="Self.FK_Goods_REFERENCE_GoodsCategory" FromRole="Goods" ToRole="GoodsCategory" />
+          <NavigationProperty Name="OrderGoods" Relationship="Self.FK_OrderGoods_REFERENCE_Goods" FromRole="Goods" ToRole="OrderGoods" />
+          <NavigationProperty Name="ShoppingCar" Relationship="Self.FK_ShoppingCar_REFERENCE_Goods" FromRole="Goods" ToRole="ShoppingCar" />
+        </EntityType>
+        <EntityType Name="GoodsCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="ParentPath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Goods" Relationship="Self.FK_Goods_REFERENCE_GoodsCategory" FromRole="GoodsCategory" ToRole="Goods" />
+        </EntityType>
+        <EntityType Name="OrderGoods">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="GoodsID" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Goods" Relationship="Self.FK_OrderGoods_REFERENCE_Goods" FromRole="OrderGoods" ToRole="Goods" />
+          <NavigationProperty Name="ShoppingOrder" Relationship="Self.FK_OrderGoods_REFERENCE_ShoppingOrder" FromRole="OrderGoods" ToRole="ShoppingOrder" />
+        </EntityType>
+        <EntityType Name="ShoppingCar">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="GoodsID" Type="Int32" />
+          <Property Name="BuyCount" Type="Int32" />
+          <NavigationProperty Name="Goods" Relationship="Self.FK_ShoppingCar_REFERENCE_Goods" FromRole="ShoppingCar" ToRole="Goods" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ShoppingCar_REFERENCE_User" FromRole="ShoppingCar" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ShoppingOrder">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="OrderNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderTime" Type="DateTime" Precision="3" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderStatus" Type="Byte" />
+          <NavigationProperty Name="OrderGoods" Relationship="Self.FK_OrderGoods_REFERENCE_ShoppingOrder" FromRole="ShoppingOrder" ToRole="OrderGoods" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ShoppingOrder_REFERENCE_User" FromRole="ShoppingOrder" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="HandPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsLock" Type="Boolean" />
+          <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
+          <Property Name="LastLoginIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ShoppingCar" Relationship="Self.FK_ShoppingCar_REFERENCE_User" FromRole="User" ToRole="ShoppingCar" />
+          <NavigationProperty Name="ShoppingOrder" Relationship="Self.FK_ShoppingOrder_REFERENCE_User" FromRole="User" ToRole="ShoppingOrder" />
+          <NavigationProperty Name="UserAddress" Relationship="Self.FK_UserAddress_REFERENCE_User" FromRole="User" ToRole="UserAddress" />
+        </EntityType>
+        <EntityType Name="UserAddress">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserAddress_REFERENCE_User" FromRole="UserAddress" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Goods_REFERENCE_GoodsCategory">
+          <End Role="GoodsCategory" Type="Self.GoodsCategory" Multiplicity="0..1" />
+          <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodsCategory">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Goods">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderGoods_REFERENCE_Goods">
+          <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+          <End Role="OrderGoods" Type="Self.OrderGoods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goods">
+              <PropertyRef Name="GoodsID" />
+            </Principal>
+            <Dependent Role="OrderGoods">
+              <PropertyRef Name="GoodsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCar_REFERENCE_Goods">
+          <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+          <End Role="ShoppingCar" Type="Self.ShoppingCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goods">
+              <PropertyRef Name="GoodsID" />
+            </Principal>
+            <Dependent Role="ShoppingCar">
+              <PropertyRef Name="GoodsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderGoods_REFERENCE_ShoppingOrder">
+          <End Role="ShoppingOrder" Type="Self.ShoppingOrder" Multiplicity="0..1" />
+          <End Role="OrderGoods" Type="Self.OrderGoods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingOrder">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderGoods">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCar_REFERENCE_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ShoppingCar" Type="Self.ShoppingCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ShoppingCar">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingOrder_REFERENCE_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ShoppingOrder" Type="Self.ShoppingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ShoppingOrder">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAddress_REFERENCE_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserAddress" Type="Self.UserAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserAddress">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShoppingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Goods" EntityType="Self.Goods" />
+          <EntitySet Name="GoodsCategory" EntityType="Self.GoodsCategory" />
+          <EntitySet Name="OrderGoods" EntityType="Self.OrderGoods" />
+          <EntitySet Name="ShoppingCar" EntityType="Self.ShoppingCar" />
+          <EntitySet Name="ShoppingOrder" EntityType="Self.ShoppingOrder" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="UserAddress" EntityType="Self.UserAddress" />
+          <AssociationSet Name="FK_Goods_REFERENCE_GoodsCategory" Association="Self.FK_Goods_REFERENCE_GoodsCategory">
+            <End Role="GoodsCategory" EntitySet="GoodsCategory" />
+            <End Role="Goods" EntitySet="Goods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderGoods_REFERENCE_Goods" Association="Self.FK_OrderGoods_REFERENCE_Goods">
+            <End Role="Goods" EntitySet="Goods" />
+            <End Role="OrderGoods" EntitySet="OrderGoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCar_REFERENCE_Goods" Association="Self.FK_ShoppingCar_REFERENCE_Goods">
+            <End Role="Goods" EntitySet="Goods" />
+            <End Role="ShoppingCar" EntitySet="ShoppingCar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderGoods_REFERENCE_ShoppingOrder" Association="Self.FK_OrderGoods_REFERENCE_ShoppingOrder">
+            <End Role="ShoppingOrder" EntitySet="ShoppingOrder" />
+            <End Role="OrderGoods" EntitySet="OrderGoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCar_REFERENCE_User" Association="Self.FK_ShoppingCar_REFERENCE_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ShoppingCar" EntitySet="ShoppingCar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingOrder_REFERENCE_User" Association="Self.FK_ShoppingOrder_REFERENCE_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ShoppingOrder" EntitySet="ShoppingOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAddress_REFERENCE_User" Association="Self.FK_UserAddress_REFERENCE_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserAddress" EntitySet="UserAddress" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShoppingModelStoreContainer" CdmEntityContainer="ShoppingEntities">
+          <EntitySetMapping Name="Goods">
+            <EntityTypeMapping TypeName="ShoppingModel.Goods">
+              <MappingFragment StoreEntitySet="Goods">
+                <ScalarProperty Name="GoodsID" ColumnName="GoodsID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="GoodsName" ColumnName="GoodsName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="IsShow" ColumnName="IsShow" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="GoodsPic" ColumnName="GoodsPic" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoodsCategory">
+            <EntityTypeMapping TypeName="ShoppingModel.GoodsCategory">
+              <MappingFragment StoreEntitySet="GoodsCategory">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="ParentPath" ColumnName="ParentPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderGoods">
+            <EntityTypeMapping TypeName="ShoppingModel.OrderGoods">
+              <MappingFragment StoreEntitySet="OrderGoods">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="GoodsID" ColumnName="GoodsID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCar">
+            <EntityTypeMapping TypeName="ShoppingModel.ShoppingCar">
+              <MappingFragment StoreEntitySet="ShoppingCar">
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="GoodsID" ColumnName="GoodsID" />
+                <ScalarProperty Name="BuyCount" ColumnName="BuyCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingOrder">
+            <EntityTypeMapping TypeName="ShoppingModel.ShoppingOrder">
+              <MappingFragment StoreEntitySet="ShoppingOrder">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+                <ScalarProperty Name="OrderTime" ColumnName="OrderTime" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="ShoppingModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="HandPhone" ColumnName="HandPhone" />
+                <ScalarProperty Name="IsLock" ColumnName="IsLock" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="LastLoginIP" ColumnName="LastLoginIP" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAddress">
+            <EntityTypeMapping TypeName="ShoppingModel.UserAddress">
+              <MappingFragment StoreEntitySet="UserAddress">
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

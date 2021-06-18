@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="da1293d41e634ff8b8b84f52089bed36" Name="Diagram1" ZoomLevel="52">
+        <EntityTypeShape EntityType="ShoppingModel.Goods" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.GoodsCategory" Width="1.5" PointX="1.5" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.OrderGoods" Width="1.5" PointX="9.875" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.ShoppingCar" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.ShoppingOrder" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.User" Width="1.5" PointX="12" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.UserAddress" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <AssociationConnector Association="ShoppingModel.FK_Goods_REFERENCE_GoodsCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK_OrderGoods_REFERENCE_Goods" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK_ShoppingCar_REFERENCE_Goods" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK_OrderGoods_REFERENCE_ShoppingOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK_ShoppingCar_REFERENCE_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK_ShoppingOrder_REFERENCE_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK_UserAddress_REFERENCE_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
