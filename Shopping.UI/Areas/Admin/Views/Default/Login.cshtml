@@ -1,0 +1,99 @@
+﻿@model LoginModel
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>zui-admin</title>
+    <!-- zui css -->
+    <link href="~/Areas/Admin/zui/dist/css/zui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/zui/dist/theme/blue.css" rel="stylesheet" />
+    <!-- app css -->
+    <link href="~/Areas/Admin/zui/css/app.css" rel="stylesheet" />
+    <!-- jquery js -->
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <style type="text/css">
+        .code div{float:left;}
+        .code div:first-child{width:70%;}
+    </style>
+</head>
+<body class="bg-primary">
+    <div class="page page-login text-center">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="logo">
+                    <a href="#">ZUI-ADMIN</a>
+                </div>
+                <form action="#">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "ID/帐号" })
+                    </div>
+                    <div class="form-group">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "密码" })
+                    </div>
+                    <div class="form-group code">
+                        <div>
+                            @Html.TextBoxFor(m => m.ValidateCode, new { @class = "form-control", placeholder = "验证码" })
+                        </div>
+                        <div>
+                            <img src="@Url.Action("ValidateCode")" />
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-lg btn-primary btn-block">登录</button>
+                </form>
+            </div>
+        </div>
+        <footer class="page-copyright page-copyright-inverse">
+            <p>WEBSITE BY 莫非</p>
+            <p>© 2018. All RIGHT RESERVED.</p>
+        </footer>
+    </div>
+
+    <script>
+        $(function () {
+            $("button").click(function () {
+                if ($("#UserName").val().length <= 0) {
+                    new $.zui.Messager("请输入用户名", {
+                        type: 'danger' // 定义颜色主题
+                    }).show();
+                    return;
+                }
+                if ($("#Password").val().length <= 0) {
+                    new $.zui.Messager("请输入密码", {
+                        type: 'danger' // 定义颜色主题
+                    }).show();
+                    return;
+                }
+                if ($("#ValidateCode").val().length <= 0) {
+                    new $.zui.Messager("请输入验证码", {
+                        type: 'danger' // 定义颜色主题
+                    }).show();
+                    return;
+                }
+
+                $.ajax({
+                    url: "@Url.Action()",
+                    type: "post",
+                    dataType: "json",
+                    data: $("form").serialize(),
+                    success: function (d) {
+                        if (d.ErrorCode > 0) {
+                            new $.zui.Messager(d.Info, {
+                                type: 'danger' // 定义颜色主题
+                            }).show();
+                        } else {
+                            window.location.href = "@Url.Action("Index", "Default")";
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+
+    <!-- zui js -->
+    <script src="~/zui-admin/dist/js/zui-1.9.2.js"></script>
+    <!-- app js -->
+    <script src="~/zui-admin/js/app.js"></script>
+</body>
+</html>

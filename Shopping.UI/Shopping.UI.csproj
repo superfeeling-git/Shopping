@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -123,6 +129,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -130,6 +137,29 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\calendar.js" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\lang\en.js" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\WdatePicker.js" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\开发包\lang\en.js" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\开发包\lang\zh-cn.js" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\开发包\lang\zh-tw.js" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\开发包\readme.txt" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\开发包\skin\datePicker.gif" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\开发包\skin\default\datepicker.css" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\开发包\skin\default\img.gif" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\开发包\skin\WdatePicker.css" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\开发包\skin\whyGreen\bg.jpg" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\开发包\skin\whyGreen\datepicker.css" />
+    <Content Include="Areas\Admin\Plugin\My97DatePicker\开发包\skin\whyGreen\img.gif" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -140,6 +170,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\UrlHelper.js" />
     <Content Include="zui-admin\component-checkbox-radio.html" />
     <Content Include="zui-admin\component-step.html" />
     <Content Include="zui-admin\config.html" />
@@ -149,7 +180,8 @@
     <Content Include="zui-admin\dist\css\zui.lite.min.css" />
     <Content Include="zui-admin\dist\css\zui.min.css" />
     <Content Include="zui-admin\dist\fonts\zenicon.svg" />
-    <Content Include="zui-admin\dist\js\zui.js" />
+    <Content Include="zui-admin\dist\js\zui-.js" />
+    <Content Include="zui-admin\dist\js\zui-1.9.2.js" />
     <Content Include="zui-admin\dist\js\zui.lite.js" />
     <Content Include="zui-admin\dist\js\zui.lite.min.js" />
     <Content Include="zui-admin\dist\js\zui.min.js" />
@@ -436,7 +468,10 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Default\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Default\Main.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Create.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Default\Login.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -479,6 +514,7 @@
     <Content Include="zui-admin\dist\lib\kindeditor\README.md" />
     <Content Include="zui-admin\dist\lib\uploader\Moxie.xap" />
     <Content Include="zui-admin\README.md" />
+    <Content Include="Views\Default\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

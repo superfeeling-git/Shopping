@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -87,8 +90,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="@Url.Action("Create","User")" target="MainWindow"><i class="icon icon-circle-blank"></i> 用户添加</a></li>
-                            <li><a href="@Url.Action("Index","User")" target="MainWindow"><i class="icon icon-circle-blank"></i> 用户管理</a></li>
+                            <li><a href="@Url.Action("Index","User")" target="MainWindow"><i class="icon icon-circle-blank"></i> 用户添加</a></li>
+                            <li><a href="layout.html"><i class="icon icon-circle-blank"></i> 空白页</a></li>
                             <li><a href="login.html"><i class="icon icon-circle-blank"></i> 登录</a></li>
                             <li><a href="error-404.html"><i class="icon icon-circle-blank"></i> 404页</a></li>
                             <li><a href="config.html"><i class="icon icon-circle-blank"></i> 系统设置</a></li>
@@ -125,7 +128,15 @@
             </section>
         </aside>
         <div class="content-wrapper">
-            <iframe name="MainWindow" src="@Url.Action("Main")" frameborder="0" width="100%" height="100%"></iframe>
+            <div class="content-header">
+                <ul class="breadcrumb">
+                    <li><a href="#"><i class="icon icon-home"></i></a></li>
+                    <li class="active">仪表盘</li>
+                </ul>
+            </div>
+            <div class="content-body">
+                <iframe id="MainWindow" name="MainWindow" src="@Url.Action("Main")" frameborder="0" width="100%" height="100%"></iframe>
+            </div>
         </div>
     </div>
 
