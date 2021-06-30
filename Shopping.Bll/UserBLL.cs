@@ -125,5 +125,15 @@ namespace Shopping.Bll
                 }
             }
         }
+
+        public int Delete(int id)
+        {
+            return userDAL.Delete(id);
+        }
+
+        public int Delete(int[] idList)
+        {
+            return userDAL.Delete(idList);
+        }
     }
 }

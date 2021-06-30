@@ -44,6 +44,56 @@
                     setParmsValue("pageindex", page);
                 }
             });
+
+            @if(Request.QueryString["r"] == "ok")
+            {
+                <text>
+                new $.zui.Messager('删除成功。', {
+                type: "success",
+                    }).show();
+                </text>
+            }
+
+            $(".delete").click(function () {
+                var result = confirm("确认要删除吗？")
+                if (result) {
+                    var id = $(this).prop("id");
+                    window.location.href = `/Admin/User/Delete/${id}`;
+                }
+            })
+
+            $("table thead input").click(function () {
+                console.log();
+                var checked = this.checked;
+                //$("[name=UserID]:checkbox").prop("checked", this.checked);
+                $("table tbody input").prop("checked", checked);
+            })
+
+            $(".BatchDelete").click(function () {
+
+                
+
+
+                $.ajax({
+                    url: "@Url.Action("BatchDelete")",
+                    type: "post",
+                    dataType: "json",
+                    data: $("form#list").serialize(),
+                    success: function (d) {
+                        if (d > 0) {
+                            new $.zui.Messager(`成功删除了${d}条数据`, {
+                                type: "success",
+                                placement: "top-right",
+                                icon: 'bell' // 定义消息图标
+                            }).show();
+
+                            $("input[name=UserID]:checked").each(function (i, e) {
+                                $(e).parents("tr").remove();
+                            })
+                        }
+                    }
+                })
+            })
         })
     </script>
 </head>
@@ -78,53 +128,55 @@
                                 </div>
                             </div>
                             <div class="tools-group">
-                                <a href="#" class="btn btn-primary"><i class="icon icon-plus-sign"></i> 新增</a>
-                                <a href="#" class="btn btn-success"><i class="icon icon-check-circle"></i> 启用</a>
-                                <a href="#" class="btn btn-warning"><i class="icon icon-ban-circle"></i> 禁用</a>
-                                <a href="#" class="btn btn-danger"><i class="icon icon-remove-sign"></i> 删除</a>
+                                <a href="javascript:;" class="btn btn-primary" data-iframe="@Url.Action("Create")" data-toggle="modal"><i class="icon icon-plus-sign"></i> 新增</a>
+                                <a href="javascript:;" class="btn btn-success"><i class="icon icon-check-circle"></i> 启用</a>
+                                <a href="javascript:;" class="btn btn-warning"><i class="icon icon-ban-circle"></i> 禁用</a>                                
+                                <a href="javascript:;" class="btn btn-warning BatchDelete"><i class="icon icon-remove-sign"></i> 删除</a>
                             </div>
                         </div>
                     </form>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th width="30">
-                                    <input type="checkbox">
-                                </th>
-                                <th width="50">ID</th>
-                                <th>用户名</th>
-                                <th>姓名</th>
-                                <th>性别</th>
-                                <th>手机号</th>
-                                <th>生日</th>
-                                <th>是否锁定</th>
-                                <th>创建时间</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
-                            @foreach (var item in Model.Item3)
-                            {
+                    <form method="post" id="list" action="@Url.Action("BatchDelete")">
+                        <table class="table table-bordered">
+                            <thead>
                                 <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>@item.UserID</td>
-                                    <td>@item.UserName</td>
-                                    <td>@item.FullName</td>
-                                    <td>@(item.Sex ? "女" : "男")</td>
-                                    <td>@item.HandPhone</td>
-                                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.Birthday)</td>
-                                    <td>@((bool)item.IsLock ? "是" : "否")</td>
-                                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
-                                    <td>
-                                        <a href="@Url.Action("Edit",new { id = item.UserID })" class="btn btn-xs btn-primary">编辑</a>
-                                        <a href="#" class="btn btn-xs btn-danger">删除</a>
-                                    </td>
+                                    <th width="30">
+                                        <input type="checkbox" id="All">
+                                    </th>
+                                    <th width="50">ID</th>
+                                    <th>用户名</th>
+                                    <th>姓名</th>
+                                    <th>性别</th>
+                                    <th>手机号</th>
+                                    <th>生日</th>
+                                    <th>是否锁定</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
 
+                                @foreach (var item in Model.Item3)
+                                {
+                                    <tr>
+                                        <td><input type="checkbox" value="@item.UserID" name="UserID"></td>
+                                        <td>@item.UserID</td>
+                                        <td>@item.UserName</td>
+                                        <td>@item.FullName</td>
+                                        <td>@(item.Sex ? "女" : "男")</td>
+                                        <td>@item.HandPhone</td>
+                                        <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.Birthday)</td>
+                                        <td>@((bool)item.IsLock ? "是" : "否")</td>
+                                        <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                                        <td>
+                                            <a href="@Url.Action("Edit",new { id = item.UserID })" class="btn btn-xs btn-primary">编辑</a>
+                                            <a href="javascript:;" class="btn btn-xs btn-danger delete" id="@item.UserID">删除</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </form>
                     <ul class="pager" id="MyPage"></ul>
                 </div>
             </div>

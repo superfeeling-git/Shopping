@@ -137,7 +137,19 @@ namespace Shopping.UI.Areas.Admin.Controllers
                 code.Append(codeList[random.Next(0, codeList.Length - 1)]);
             }         
 
+
             return code.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult t1()
+        {
+            Session["abc"] = "123";
+            return new EmptyResult();
         }
     }
 }

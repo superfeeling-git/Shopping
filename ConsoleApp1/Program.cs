@@ -14,6 +14,11 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+
+
+
+            Console.Write(10 ^ 2);
+
             #region MyRegion
             /*Program program = new Program();
 
@@ -42,10 +47,10 @@ namespace ConsoleApp1
 
             Console.WriteLine(r);*/
 
-            DateTime? date = DateTime.Now;
+            /*DateTime? date = DateTime.Now;
 
             string str = string.Format("{0:yyyy-MM-dd}", date);
-            Console.WriteLine(str);
+            Console.WriteLine(str);*/
 
             Console.ReadLine();
         }

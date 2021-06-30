@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Shopping.UI.Controllers
 {
@@ -17,7 +18,9 @@ namespace Shopping.UI.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            //return View();
+
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
         public ActionResult Contact()

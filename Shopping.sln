@@ -15,6 +15,32 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Common", "Shopping
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{F1830233-8ECC-48C9-902B-33FFB6712AB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.WebAPI", "Shopping.WebAPI\Shopping.WebAPI.csproj", "{D20AC4C6-098B-4125-96AF-E11A10D9079F}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Shopping.WCF_1", "Shopping.WCF_1\", "{6D2858A8-2BA2-43DD-84AE-7FC9B0CA4282}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7.2"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_57810"
+		Debug.AspNetCompiler.PhysicalPath = "Shopping.WCF_1\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_57810\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_57810"
+		Release.AspNetCompiler.PhysicalPath = "Shopping.WCF_1\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_57810\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "57810"
+		SlnRelativePath = "Shopping.WCF_1\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.WCF_2", "Shopping.WCF_2\Shopping.WCF_2.csproj", "{38418258-3924-48E5-8A73-B36D26AF4A26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +71,18 @@ Global
 		{F1830233-8ECC-48C9-902B-33FFB6712AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1830233-8ECC-48C9-902B-33FFB6712AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1830233-8ECC-48C9-902B-33FFB6712AB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D20AC4C6-098B-4125-96AF-E11A10D9079F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D20AC4C6-098B-4125-96AF-E11A10D9079F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D20AC4C6-098B-4125-96AF-E11A10D9079F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D20AC4C6-098B-4125-96AF-E11A10D9079F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D2858A8-2BA2-43DD-84AE-7FC9B0CA4282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D2858A8-2BA2-43DD-84AE-7FC9B0CA4282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D2858A8-2BA2-43DD-84AE-7FC9B0CA4282}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D2858A8-2BA2-43DD-84AE-7FC9B0CA4282}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{38418258-3924-48E5-8A73-B36D26AF4A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38418258-3924-48E5-8A73-B36D26AF4A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38418258-3924-48E5-8A73-B36D26AF4A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38418258-3924-48E5-8A73-B36D26AF4A26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

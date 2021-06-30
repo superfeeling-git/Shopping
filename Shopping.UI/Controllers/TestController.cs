@@ -11,6 +11,7 @@ namespace Shopping.UI.Controllers
         // GET: Default
         public ActionResult Index()
         {
+
             return View();
         }
     }

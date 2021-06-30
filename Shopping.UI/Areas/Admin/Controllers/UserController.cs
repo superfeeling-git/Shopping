@@ -27,13 +27,13 @@ namespace Shopping.UI.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(UserModel userModel)
         {
-            string mono = Request.QueryString["mono"];
+            /*string mono = Request.QueryString["mono"];
             if (!string.IsNullOrWhiteSpace(mono))
             {
 
-            }
+            }*/
             userBLL.Create(userModel);
-            return RedirectToAction("Create");
+            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -80,14 +80,38 @@ namespace Shopping.UI.Areas.Admin.Controllers
         {
             userBLL.Update(userModel);
 
-            var obj = new { Column= 1, Value= 2 };
-            string json = JsonConvert.SerializeObject(obj);
+            string a = "张三";
 
-            int id = 1;
+            //我的名字是：张三
 
-            string str = "[{\"Column\":\""+ id + "\",\"Value\":\"235\"}]";
+            string b = string.Format("我的名字是:{0}", a);
+
+            string c = $"我的名字是:{a}";
+
+
 
             return Json(new { info = "ok" }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            userBLL.Delete(id);
+            return Redirect("/Admin/User?r=ok");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult BatchDelete(int[] UserID)
+        {
+            return Json(userBLL.Delete(UserID), JsonRequestBehavior.AllowGet);
         }
     }
 }

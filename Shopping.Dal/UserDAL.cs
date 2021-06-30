@@ -199,5 +199,43 @@ namespace Shopping.Dal
 
             return db.SaveChanges();
         }
+
+        public int Delete(int id)
+        {
+            ShoppingEntities db = new ShoppingEntities();
+            var user = db.User.Find(id);
+            db.User.Remove(user);
+            return db.SaveChanges();
+        }
+
+        public int Delete(string ids)
+        {
+            ShoppingEntities db = new ShoppingEntities();
+
+            string[] arr = ids.Split(',');
+
+            foreach (var item in arr)
+            {
+                var list = db.User.Find((Convert.ToInt32(item)));
+                db.User.Remove(list);
+            }
+            return db.SaveChanges();
+        }
+
+        public int Delete(int[] idList)
+        {
+            ShoppingEntities db = new ShoppingEntities();
+
+            var list = db.User.Where(m => idList.Any(a => a == m.UserID));
+
+            var list1 = db.User.Where(m => idList.Contains(m.UserID));
+
+            foreach (var item in list)
+            {
+                db.User.Remove(item);
+            }
+
+            return db.SaveChanges();
+        }
     }
 }
