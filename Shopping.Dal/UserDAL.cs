@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Shopping.Model;
+using System.Linq.Dynamic;
+using System.Linq.Dynamic.Core;
 
 namespace Shopping.Dal
 {
-    public class UserDAL
+    public class UserDAL : IBaseDAL<UserModel>
     {
         public int Create(UserModel userModel)
         {
@@ -120,8 +122,9 @@ namespace Shopping.Dal
             //......条件
 
 
-            //分页数据
-            var Userlist = list.OrderBy(m=>m.UserID).Skip((PageIndex - 1) * pageSize).Take(pageSize)
+            //分页数据            
+
+            var Userlist = list.OrderBy(m => m.UserID).Page(PageIndex, pageSize)
                 .Select(m => new UserModel {
                     UserName = m.UserName,
                     Birthday = m.Birthday,
@@ -236,6 +239,11 @@ namespace Shopping.Dal
             }
 
             return db.SaveChanges();
+        }
+
+        public UserModel GetModel(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

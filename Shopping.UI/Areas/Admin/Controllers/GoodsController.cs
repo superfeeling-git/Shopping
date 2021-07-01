@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Configuration;
+using Shopping.Bll;
+using Shopping.Model;
+using System.Data.SqlClient;
 
 namespace Shopping.UI.Areas.Admin.Controllers
 {
@@ -13,11 +16,55 @@ namespace Shopping.UI.Areas.Admin.Controllers
     /// </summary>
     public class GoodsController : Controller
     {
-        // GET: Admin/Goods
-        public ActionResult Create()
+        GoodsCategoryBLL GoodsCategoryBLL = new GoodsCategoryBLL();
+        GoodsBLL goodsBLL = new GoodsBLL();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Index()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult List(PageSetting pageSetting, string Keywords)
+        {
+            var list = goodsBLL.GetPageDataTuple(pageSetting.PageSize, pageSetting.PageIndex, Keywords);
+
+            ViewBag.keywords = Keywords;
+            ViewBag.page = pageSetting;
+
+            return View(list);
+        }
+
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Create()
+        {
+            ViewBag.selectLists = new SelectList(GoodsCategoryBLL.GetAll(), "CategoryID", "CategoryName");
+            return View(new GoodsModel());
+        }
+
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Create(GoodsModel goodsModel)
+        {
+            return Json(goodsBLL.Create(goodsModel), JsonRequestBehavior.AllowGet);
+        }
+
 
         /// <summary>
         /// 
@@ -33,9 +80,6 @@ namespace Shopping.UI.Areas.Admin.Controllers
         public ActionResult Upload(HttpPostedFileBase file)
         {
             string Upload = "/UploadFile";
-
-            //slajfalsdjf
-
 
             string ext = Path.GetExtension(file.FileName).Trim('.');
 

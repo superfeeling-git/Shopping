@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shopping.Model
 {
@@ -20,23 +21,29 @@ namespace Shopping.Model
         ///<Summary>
         /// 主键
         ///</Summary>
-        public int CategoryID { get; set; }
+        [Required(ErrorMessage = "必须项")]
+        public int? CategoryID { get; set; }
+        /// <summary>
+        /// 分类名称
+        /// </summary>
+        public string CategoryName { get; set; }
         ///<Summary>
         /// 商品名称
         ///</Summary>
+        [Required(ErrorMessage = "必须项")]
         public string GoodsName { get; set; }
         ///<Summary>
         /// 商品价格
         ///</Summary>
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
         ///<Summary>
         /// 商品库存
         ///</Summary>
-        public int Stock { get; set; }
+        public int? Stock { get; set; }
         ///<Summary>
         /// 是否上架
         ///</Summary>
-        public bool IsShow { get; set; }
+        public bool? IsShow { get; set; }
         ///<Summary>
         /// 商品介绍
         ///</Summary>
@@ -48,7 +55,7 @@ namespace Shopping.Model
         ///<Summary>
         /// 添加时间
         ///</Summary>
-        public DateTime CreateTime { get; set; }
+        public DateTime? CreateTime { get; set; }
         #endregion
     }
 }

@@ -1,0 +1,31 @@
+﻿@model Tuple<int, int, List<GoodsModel>>
+@foreach (var item in Model.Item3)
+{
+<tr>
+    <td><input type="checkbox" value="@item.GoodsID" name="GoodsID"></td>
+    <td>@item.GoodsID</td>
+    <td>@item.CategoryName</td>
+    <td>@item.GoodsName</td>
+    <td><a href="@item.GoodsPic" target="_blank"><img src="@item.GoodsPic" height="30" /></a></td>
+    <td>@item.Price</td>
+    <td>@item.Stock</td>
+    <td>@item.IsShow</td>
+    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+    <td>
+        <a href="@Url.Action("Edit",new { id = item.GoodsID })" class="btn btn-xs btn-primary">编辑</a>
+        <a href="javascript:;" class="btn btn-xs btn-danger delete" id="@item.GoodsID">删除</a>
+    </td>
+</tr>
+}
+<script>
+    @{ 
+    PageSetting page = ViewBag.page as PageSetting;
+    int pageIndex = page.PageIndex;
+    int pageSize = page.PageSize;
+    int TotalCount = Model.Item1;
+    };
+
+    var pageindex = @pageIndex;
+    var pagesize = @pageSize;
+    var TotalCount = @TotalCount;
+</script>

@@ -15,6 +15,7 @@
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Areas/Admin/Plugin/My97DatePicker/WdatePicker.js"></script>
     <link href="~/zui-admin/dist/lib/uploader/zui.uploader.css" rel="stylesheet" />
     <style type="text/css">
@@ -24,7 +25,6 @@
     </style>
 </head>
 <body>
-    @Session["abc"]
     <div class="content-header">
         <ul class="breadcrumb">
             <li><a href="#"><i class="icon icon-home"></i></a></li>
@@ -33,17 +33,16 @@
     </div>
     <div class="content-body">
         <div class="container-fluid">
-            @using (Html.BeginForm("Create", "Goods", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Ajax.BeginForm("Create", new AjaxOptions { HttpMethod = "Post", OnSuccess = "SaveSucess" }))
             {
-
-                <!--
                 <div class="form-group">
                     <label>分类选择</label>
-
+                    @Html.DropDownListFor(m => m.CategoryID, ViewBag.selectLists as IEnumerable<SelectListItem>, "--请选择--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.CategoryID)
                 </div>
                 <div class="form-group">
                     <label>商品名称</label>
-                    @Html.PasswordFor(m => m.GoodsName, new { @class = "form-control", placeholder = "请输入密码" })
+                    @Html.TextBoxFor(m => m.GoodsName, new { @class = "form-control", placeholder = "请输入密码" })
                     @Html.ValidationMessageFor(m => m.GoodsName)
                 </div>
                 <div class="form-group">
@@ -59,11 +58,10 @@
                 <div class="form-group">
                     <label>是否上架</label>
                     <div class="switch">
-                        <input type="checkbox">
+                        <input id="IsShow" name="IsShow" type="checkbox" value="true">
                         <label>上架</label>
                     </div>
-                </div>    
-                -->
+                </div>
                 <div class="form-group">
                     <label>图片上传</label>
                     <div id="uploaderExample" class="uploader">
@@ -72,13 +70,10 @@
                     </div>
                     @Html.HiddenFor(m => m.GoodsPic)
                 </div>
-                @*<div class="form-group">
+                <div class="form-group">
                     <label>商品介绍</label>
-                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "请输入姓名" })
-                    @Html.ValidationMessageFor(m => m.FullName)
-                </div>*@
-
-                
+                    @Html.TextAreaFor(m => m.Details, new { style = "width:100%;height:300px;" })
+                </div>
 
                 <button type="submit" class="btn btn-primary">提交</button>
             }
@@ -89,31 +84,30 @@
     <script src="~/zui-admin/dist/lib/uploader/zui.uploader.js"></script>
     <!-- app js -->
     <script src="~/zui-admin/js/app.js"></script>
-
+    <script src="~/Areas/Admin/Plugin/kindeditor/kindeditor-all.js"></script>
+    <script src="~/Areas/Admin/Plugin/kindeditor/lang/zh-CN.js"></script>
     <script>
-
-        var n = 999;
-
-        function f1() {
-            alert(n);
+        function SaveSucess(data) {
+            window.location.reload();
         }
 
-        f1(); // 999
-
-
         $(function () {
-            $("button.btn").click(function () {                
-                $.ajax({
-                    url: "@Url.Action()",
-                    type: "post",
-                    dataType: "json",
-                    data: $("form").serialize(),
-                    //成功
-                    success: function (d) {
-                        window.location.href = "@Url.Action("Create")";
-                    }
-                })
-            })
+            
+            KindEditor.ready(function (K) {
+                window.editor = K.create('#Details', {
+                    items: [
+                        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage',
+                        'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                        'anchor', 'link', 'unlink', '|', 'about'
+                    ]
+                    , uploadJson:"/Areas/Admin/Plugin/kindeditor/asp.net/upload_json.ashx"
+                });
+            });
 
             $('#uploaderExample').uploader({
                 autoUpload: true,            // 当选择文件后立即自动进行上传操作

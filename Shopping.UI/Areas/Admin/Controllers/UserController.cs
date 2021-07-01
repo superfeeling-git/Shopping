@@ -53,12 +53,26 @@ namespace Shopping.UI.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Index(PageSetting pageSetting, string Keywords)
         {
-            var list = userBLL.GetPageDataTuple(pageSetting.PageSize, pageSetting.PageIndex, Keywords);
+            if (Request.IsAjaxRequest())
+            {
+                var list = userBLL.GetPageDataTuple(pageSetting.PageSize, pageSetting.PageIndex, Keywords);
 
-            ViewBag.keywords = Keywords;
-            ViewBag.page = pageSetting;
+                ViewBag.keywords = Keywords;
+                ViewBag.page = pageSetting;
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
 
-            return View(list);
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult List()
+        {
+            return View();
         }
 
         /// <summary>

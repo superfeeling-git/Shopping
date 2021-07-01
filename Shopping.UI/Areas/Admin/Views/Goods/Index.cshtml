@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>系统设置-页面演示 zui-admin</title>
+    <!-- zui css -->
+    <link href="~/Areas/Admin/zui/dist/css/zui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/zui/dist/theme/blue.css" rel="stylesheet" />
+    <!-- app css -->
+    <link href="~/Areas/Admin/zui/css/app.css" rel="stylesheet" />
+    <!-- jquery js -->
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Areas/Admin/Plugin/My97DatePicker/WdatePicker.js"></script>
+    <script src="~/Scripts/UrlHelper.js"></script>
+    <style type="text/css">
+        .field-validation-error {
+            color: red;
+        }
+
+        .pager {
+            display: table;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+    @{
+        PageSetting pageSetting = ViewBag.page as PageSetting;
+    }
+<script>
+        $(function () {
+
+            $.get("", function () {
+
+            })
+
+            $.post("", {}, function () {
+
+            })
+
+            function getPageData(data) {
+                $.ajax({
+                    url: "@Url.Action("List")",
+                    async: false,
+                    data: data,
+                    type: "get"
+                })
+            }
+
+            $('#MyPage').pager({
+                page: pageindex,
+                recTotal: TotalCount,
+                recPerPage: pagesize,
+                elements: ['first_icon', 'prev_icon', 'pages', 'next_icon', 'last_icon'],
+                onPageChange: function (state, oldState) {
+                    let page = state.page;
+                    getPageData({ pageindex: page, pagesize: pagesize });                    
+                }
+            });
+
+            @if(Request.QueryString["r"] == "ok")
+            {
+                <text>
+                new $.zui.Messager('删除成功。', {
+                type: "success",
+                    }).show();
+                </text>
+            }
+
+            $(".delete").click(function () {
+                var result = confirm("确认要删除吗？")
+               if (result) {
+                    var id = $(this).prop("id");
+                    window.location.href = `/Admin/User/Delete/${id}`;
+                }
+            })
+
+            $("table thead input").click(function () {
+                console.log();
+                var checked = this.checked;
+                //$("[name=UserID]:checkbox").prop("checked", this.checked);
+                $("table tbody input").prop("checked", checked);
+            })
+
+            $(".BatchDelete").click(function () {
+
+                $.ajax({
+                    url: "@Url.Action("BatchDelete")",
+                    type: "post",
+                    dataType: "json",
+                    data: $("form#list").serialize(),
+                    success: function (d) {
+                        if (d > 0) {
+                            new $.zui.Messager(`成功删除了${d}条数据`, {
+                                type: "success",
+                                placement: "top-right",
+                                icon: 'bell' // 定义消息图标
+                            }).show();
+
+                            $("input[name=UserID]:checked").each(function (i, e) {
+                                $(e).parents("tr").remove();
+                            })
+                        }
+                    }
+                })
+            })
+        })
+</script>
+</head>
+<body>
+
+    <div class="content-header">
+        <ul class="breadcrumb">
+            <li><a href="#"><i class="icon icon-home"></i></a></li>
+            <li><a href="#">页面演示</a></li>
+            <li class="active">用户列表</li>
+        </ul>
+    </div>
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <p>页面演示仅供参考，可自行修改</p>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">用户列表</div>
+                </div>
+                <div class="panel-body">
+                    <form method="get">
+                        <div class="table-tools" style="margin-bottom: 15px;">
+                            <div class="pull-right" style="width: 250px;">
+                                <div class="input-group">
+                                    <input type="text" name="Keywords" value="@ViewBag.keywords" class="form-control" placeholder="关键字">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="submit">搜索</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="tools-group">
+                                <a href="javascript:;" class="btn btn-primary" data-iframe="@Url.Action("Create")" data-toggle="modal"><i class="icon icon-plus-sign"></i> 新增</a>
+                                <a href="javascript:;" class="btn btn-success"><i class="icon icon-check-circle"></i> 启用</a>
+                                <a href="javascript:;" class="btn btn-warning"><i class="icon icon-ban-circle"></i> 禁用</a>
+                                <a href="javascript:;" class="btn btn-warning BatchDelete"><i class="icon icon-remove-sign"></i> 删除</a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form method="post" id="list" action="@Url.Action("BatchDelete")">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="30">
+                                        <input type="checkbox" id="All">
+                                    </th>
+                                    <th width="50">ID</th>
+                                    <th>分类名称</th>
+                                    <th>商品名称</th>
+                                    <th>商品图片</th>
+                                    <th>商品价格</th>
+                                    <th>库存数量</th>
+                                    <th>是否上架</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                                                
+                            </tbody>
+                        </table>
+                    </form>
+                    <ul class="pager" id="MyPage"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- zui js -->
+    <script src="~/zui-admin/dist/js/zui-1.9.2.js"></script>
+    <!-- app js -->
+    <script src="~/zui-admin/js/app.js"></script>
+
+</body>
+</html>

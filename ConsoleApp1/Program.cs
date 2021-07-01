@@ -14,7 +14,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-
+            ShoppingEntities db = new ShoppingEntities();
+            
 
 
             Console.Write(10 ^ 2);
