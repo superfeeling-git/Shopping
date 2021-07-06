@@ -99,13 +99,10 @@
 </head>
 <body>
 
-    <div class="content-header">
-        <ul class="breadcrumb">
-            <li><a href="#"><i class="icon icon-home"></i></a></li>
-            <li><a href="#">页面演示</a></li>
-            <li class="active">用户列表</li>
-        </ul>
-    </div>
+    @Html.Partial("Header", new List<PartialModel> {
+         new PartialModel{ Id = 1, Name = "页面演示", LinkUrl = "#" },
+         new PartialModel{ Id = 2, Name = "用户管理", LinkUrl = "/Admin/User" }
+    })
     <div class="content-body">
         <div class="container-fluid">
             <div class="alert alert-warning alert-dismissable">

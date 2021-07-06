@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Build.BuildEngine;
+using Microsoft.Build.Framework;
 using Shopping.Dal;
 using Shopping.Model;
+using System.IO;
+using System.Web;
 
 namespace Shopping.Bll
 {
@@ -42,7 +46,7 @@ namespace Shopping.Bll
 
         public GoodsModel GetModel(int id)
         {
-            throw new NotImplementedException();
+            return goodsDAL.GetModel(id);
         }
 
         public Tuple<int, int, List<GoodsModel>> GetPageDataTuple(int pageSize, int PageIndex, string Keywords)
@@ -50,9 +54,32 @@ namespace Shopping.Bll
             return goodsDAL.GetPageDataTuple(pageSize, PageIndex, Keywords);
         }
 
-        public ResultModel Update(GoodsModel userModel)
+        public ResultModel Update(GoodsModel Model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var model = GetModel(Model.GoodsID);
+
+                //上传了新的图片
+                if(model.GoodsPic != Model.GoodsPic)
+                {
+                    string path = HttpContext.Current.Server.MapPath(model.GoodsPic);
+
+                    //删除旧的图片
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+                }
+
+                goodsDAL.Update(Model);
+
+                return new ResultModel { ErrorCode = 0 };
+            }
+            catch (Exception e)
+            {
+                return new ResultModel { ErrorCode = 1, Info = $"更新异常,异常信息：{e.Message}" };
+            }
         }
     }
 }

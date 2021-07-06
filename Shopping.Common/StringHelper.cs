@@ -9,6 +9,11 @@ namespace Shopping.Common
 {
     public static class StringHelper
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static string GetMD5(this string input)
         {
             MD5 md5 = MD5.Create();

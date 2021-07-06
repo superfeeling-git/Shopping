@@ -56,6 +56,7 @@
     <Compile Include="GoodsModel.cs" />
     <Compile Include="LoginModel.cs" />
     <Compile Include="PageModel.cs" />
+    <Compile Include="PartialModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultModel.cs" />
     <Compile Include="UserModel.cs" />

@@ -38,7 +38,7 @@ namespace Shopping.Bll
         /// </summary>
         /// <param name="userModel"></param>
         /// <returns></returns>
-        ResultModel Update(T userModel);
+        ResultModel Update(T Model);
         /// <summary>
         /// 删除
         /// </summary>

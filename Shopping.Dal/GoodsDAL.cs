@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Shopping.Model;
 using System.Data.Entity;
 using System.Linq.Dynamic.Core;
+using EntityFramework.Extensions;
 
 namespace Shopping.Dal
 {
@@ -14,6 +15,8 @@ namespace Shopping.Dal
         public int Create(GoodsModel TModel)
         {
             ShoppingEntities db = new ShoppingEntities();
+
+            
 
             Goods goods = new Goods
             {
@@ -29,6 +32,8 @@ namespace Shopping.Dal
 
             db.Entry<Goods>(goods).State = EntityState.Added;
 
+            //lkasfjlakhdfkashdklfads
+
             /*db.Goods.Add(goods);
 
             db.Set<Goods>().Add(goods);*/
@@ -38,7 +43,8 @@ namespace Shopping.Dal
 
         public int Delete(int id)
         {
-            throw new NotImplementedException();
+            ShoppingEntities db = new ShoppingEntities();
+            return db.Goods.Where(m => m.GoodsID == id).Delete();
         }
 
         public int Delete(int[] idList)
@@ -51,9 +57,25 @@ namespace Shopping.Dal
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 根据ID获取实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public GoodsModel GetModel(int id)
         {
-            throw new NotImplementedException();
+            ShoppingEntities db = new ShoppingEntities();
+            return db.Goods.Where(m => m.GoodsID == id).Select(m => new GoodsModel {
+                CategoryID = m.CategoryID,
+                Details = m.Details,
+                GoodsName = m.GoodsName,
+                GoodsPic = m.GoodsPic,
+                IsShow = m.IsShow,
+                Price = m.Price,
+                Stock = m.Stock,
+                CreateTime = m.CreateTime,
+                GoodsID = m.GoodsID
+            }).FirstOrDefault();
         }
 
         public Tuple<int, int, List<GoodsModel>> GetPageDataTuple(int pageSize, int PageIndex, string Keywords)
@@ -81,7 +103,6 @@ namespace Shopping.Dal
             //分页数据
             var Goodslist = list.OrderBy(m => m.GoodsID).Page(PageIndex,pageSize).ToList();
 
-
             //总条数
             var TotalCount = list.Count();
 
@@ -91,9 +112,19 @@ namespace Shopping.Dal
             return new Tuple<int, int, List<GoodsModel>>(item1: TotalCount, item2: PageCount, item3: Goodslist);
         }
 
-        public int Update(GoodsModel userModel)
+        public int Update(GoodsModel Model)
         {
-            throw new NotImplementedException();
+            ShoppingEntities db = new ShoppingEntities();
+
+            return db.Goods.Where(m=>m.GoodsID == Model.GoodsID).Update(m => new Goods {
+                CategoryID = Model.CategoryID,
+                Details = Model.Details,
+                GoodsName = Model.GoodsName,
+                GoodsPic = Model.GoodsPic,
+                IsShow = Model.IsShow,
+                Price = Model.Price,
+                Stock = Model.Stock
+            });
         }
     }
 }

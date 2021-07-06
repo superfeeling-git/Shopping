@@ -1,0 +1,10 @@
+﻿@model List<PartialModel> 
+<div class="content-header">
+    <ul class="breadcrumb">
+        <li><a href="#"><i class="icon icon-home"></i></a></li>
+        @foreach (var item in Model)
+        {
+            <li><a href="@item.LinkUrl" @Html.Raw(item.Id == 2 ? "class=\"active\"" : "")>@item.Name</a></li>
+        }
+    </ul>
+</div>

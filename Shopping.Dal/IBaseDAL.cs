@@ -35,9 +35,9 @@ namespace Shopping.Dal
         /// <summary>
         /// 更新
         /// </summary>
-        /// <param name="userModel"></param>
+        /// <param name="Model"></param>
         /// <returns></returns>
-        int Update(T userModel);
+        int Update(T Model);
         /// <summary>
         /// 删除
         /// </summary>

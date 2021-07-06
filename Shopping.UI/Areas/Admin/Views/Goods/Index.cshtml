@@ -31,83 +31,83 @@
         PageSetting pageSetting = ViewBag.page as PageSetting;
     }
 <script>
-        $(function () {
+    var pageindex = 0;
+    var TotalCount = 0;
+    var pagesize = 0;
+    $(function () {
+        $.ajax({
+            url: "@Url.Action("List")",
+            async: false,
+            //data: data,
+            type: "get"
+        }).done(d => {
+            $("table tbody").append(d);
+        });
 
-            $.get("", function () {
+        getPageData({ pageindex: 1, pagesize: 10 });
 
-            })
+        function getPageData(data) {
 
-            $.post("", {}, function () {
+        }
 
-            })
-
-            function getPageData(data) {
-                $.ajax({
-                    url: "@Url.Action("List")",
-                    async: false,
-                    data: data,
-                    type: "get"
-                })
+        $('#MyPage').pager({
+            page: pageindex,
+            recTotal: TotalCount,
+            recPerPage: pagesize,
+            elements: ['first_icon', 'prev_icon', 'pages', 'next_icon', 'last_icon'],
+            onPageChange: function (state, oldState) {
+                let page = state.page;
+                getPageData({ pageindex: page, pagesize: pagesize });
             }
+        });
 
-            $('#MyPage').pager({
-                page: pageindex,
-                recTotal: TotalCount,
-                recPerPage: pagesize,
-                elements: ['first_icon', 'prev_icon', 'pages', 'next_icon', 'last_icon'],
-                onPageChange: function (state, oldState) {
-                    let page = state.page;
-                    getPageData({ pageindex: page, pagesize: pagesize });                    
-                }
-            });
+        @if(Request.QueryString["r"] == "ok")
+        {
+            <text>
+            new $.zui.Messager('删除成功。', {
+            type: "success",
+                }).show();
+            </text>
+        }
 
-            @if(Request.QueryString["r"] == "ok")
-            {
-                <text>
-                new $.zui.Messager('删除成功。', {
-                type: "success",
-                    }).show();
-                </text>
+        $(".delete").click(function () {
+            var result = confirm("确认要删除吗？")
+            if (result) {
+                var id = $(this).prop("id");
+                window.location.href = `/Admin/User/Delete/${id}`;
             }
+        })
 
-            $(".delete").click(function () {
-                var result = confirm("确认要删除吗？")
-               if (result) {
-                    var id = $(this).prop("id");
-                    window.location.href = `/Admin/User/Delete/${id}`;
-                }
-            })
+        $("table thead input").click(function () {
+            console.log();
+            var checked = this.checked;
+            //$("[name=UserID]:checkbox").prop("checked", this.checked);
+            $("table tbody input").prop("checked", checked);
+        })
 
-            $("table thead input").click(function () {
-                console.log();
-                var checked = this.checked;
-                //$("[name=UserID]:checkbox").prop("checked", this.checked);
-                $("table tbody input").prop("checked", checked);
-            })
+        $(".BatchDelete").click(function () {
 
-            $(".BatchDelete").click(function () {
+            $.ajax({
+                url: "@Url.Action("BatchDelete")",
+                type: "post",
+                dataType: "json",
+                data: $("form#list").serialize(),
+                success: function (d) {
+                    if (d > 0) {
+                        new $.zui.Messager(`成功删除了${d}条数据`, {
+                            type: "success",
+                            placement: "top-right",
+                            icon: 'bell' // 定义消息图标
+                        }).show();
 
-                $.ajax({
-                    url: "@Url.Action("BatchDelete")",
-                    type: "post",
-                    dataType: "json",
-                    data: $("form#list").serialize(),
-                    success: function (d) {
-                        if (d > 0) {
-                            new $.zui.Messager(`成功删除了${d}条数据`, {
-                                type: "success",
-                                placement: "top-right",
-                                icon: 'bell' // 定义消息图标
-                            }).show();
-
-                            $("input[name=UserID]:checked").each(function (i, e) {
-                                $(e).parents("tr").remove();
-                            })
-                        }
+                        $("input[name=UserID]:checked").each(function (i, e) {
+                            $(e).parents("tr").remove();
+                        })
                     }
-                })
+                }
             })
         })
+    })
 </script>
 </head>
 <body>

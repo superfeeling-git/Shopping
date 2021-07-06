@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Shopping.Model;
 using Shopping.Bll;
 using Newtonsoft.Json;
+using System.Web.Security;
 
 namespace Shopping.UI.Areas.Admin.Controllers
 {
@@ -53,16 +54,11 @@ namespace Shopping.UI.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Index(PageSetting pageSetting, string Keywords)
         {
-            if (Request.IsAjaxRequest())
-            {
-                var list = userBLL.GetPageDataTuple(pageSetting.PageSize, pageSetting.PageIndex, Keywords);
+            var list = userBLL.GetPageDataTuple(pageSetting.PageSize, pageSetting.PageIndex, Keywords);
 
-                ViewBag.keywords = Keywords;
-                ViewBag.page = pageSetting;
-                return Json(list, JsonRequestBehavior.AllowGet);
-            }
-
-            return View();
+            ViewBag.keywords = Keywords;
+            ViewBag.page = pageSetting;
+            return View(list);
         }
 
         /// <summary>

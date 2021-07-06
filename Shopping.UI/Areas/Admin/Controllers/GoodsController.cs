@@ -41,6 +41,7 @@ namespace Shopping.UI.Areas.Admin.Controllers
             ViewBag.keywords = Keywords;
             ViewBag.page = pageSetting;
 
+
             return View(list);
         }
 
@@ -52,7 +53,7 @@ namespace Shopping.UI.Areas.Admin.Controllers
         public ActionResult Create()
         {
             ViewBag.selectLists = new SelectList(GoodsCategoryBLL.GetAll(), "CategoryID", "CategoryName");
-            return View(new GoodsModel());
+            return View();
         }
 
         /// <summary>
@@ -65,6 +66,29 @@ namespace Shopping.UI.Areas.Admin.Controllers
             return Json(goodsBLL.Create(goodsModel), JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            ViewBag.selectLists = new SelectList(GoodsCategoryBLL.GetAll(), "CategoryID", "CategoryName");
+
+            return View(goodsBLL.GetModel(id));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Edit(GoodsModel goodsModel)
+        {
+            return Json(goodsBLL.Update(goodsModel), JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// 
