@@ -3,30 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
+using NLog;
 
 namespace Shopping.UI.Controllers
 {
     public class HomeController : Controller
     {
+        // GET: Home
         public ActionResult Index()
         {
+            var log = LogManager.GetCurrentClassLogger();
+            log.Info("测试消123123123123123123123123123123息");
             return View();
         }
 
-        public ActionResult About()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Slider()
         {
-            ViewBag.Message = "Your application description page.";
-
-            //return View();
-
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

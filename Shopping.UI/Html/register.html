@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>红缀集团</title>
+<link type="text/css" rel="stylesheet" href="styles/layout.css"  />
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<link href="jBox/Skins/Blue/jbox.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="jBox/jquery.jBox-2.3.min.js"></script>
+<script type="text/javascript" src="jBox/i18n/jquery.jBox-zh-CN.js"></script>
+<script type="text/javascript">
+
+  function showtip(url, tiptitle, tipwidth, tipheight, tiptop) {
+	  // 用iframe显示http://www.baidu.com的内容，并设置了标题、宽与高、按钮
+	  $.jBox("iframe:" + url + "", {
+		  title: tiptitle,
+		  width: tipwidth,
+		  height: tipheight,
+		  top: tiptop
+	  });
+  }
+</script>
+</head>
+<body>
+<div class="logobox">
+       <div class="logos"><a href="index.html"><img src="images/logo.jpg" width="226" height="90" /></a></div>
+</div>
+<!--内容Begin-->
+<div id="container">
+  <div class="loginbox">
+     <div class="loginbox_lt">
+       <h3>免费注册</h3>
+         <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="115" height="62" align="right" valign="top">用户名：</td>
+    <td valign="top">
+    <input name="" type="text" class="input_login" /><span>用户名在6到20个字符之间</span>
+    <p>6-20个字符，可用中英文和数字组合，不能添加特殊符号！</p></td>
+  </tr>
+  <tr>
+    <td height="62" align="right" valign="top">设置密码：</td>
+    <td valign="top"><input name="" type="password" class="input_login" /><span>请输入密码</span></td>
+  </tr>
+  <tr>
+    <td height="62" align="right" valign="top">确认密码：</td>
+    <td valign="top"><input name="" type="password" class="input_login" /><span>请再次输入密码</span></td>
+  </tr>
+  <tr>
+    <td height="40" align="right" valign="top">&nbsp;</td>
+    <td valign="top"><input name="" type="button" value="同意协议并注册" class="xieyi" /></td>
+  </tr>
+  <tr>
+    <td height="33" align="right" valign="top">&nbsp;</td>
+    <td valign="top"><a   href="javascript:void(0)" onclick="showtip('agreement.html','红缀箱包商城用户协议',910,500,'10%')"  style="color:#0066cc">《红缀箱包商城用户协议》</a></td>
+  </tr>
+</table>
+
+     </div>
+    <div class="loginbox_rt">
+       <h3>已有账号</h3>
+      <a href="login.html" class="denglus">登  录</a>
+      <p><a href="#"><img src="images/pic28.jpg" width="340" height="165" /></a></p>
+     </div>
+  </div>
+</div>
+<!--内容End-->
+
+<!--页尾Begin-->  
+  <div id="footer">
+    <p>©2007-2014 Mbaobao All Rights Reserved. 红缀集团 版权所有，禁止非法复制 经营许可证编号：经营许可证编号：京B2-20100425</p>
+  </div>
+<!--页尾End--> 
+</body>
+</html>

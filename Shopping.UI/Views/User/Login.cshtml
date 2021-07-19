@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>红缀集团</title>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <link type="text/css" rel="stylesheet" href="/styles/layout.css?id=23429834797234" />
+    <script src="~/jigsaw/dist/jigsaw.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var isValidate = false;
+
+            jigsaw.init({
+                el: $("#captcha")[0],
+                onSuccess: function () {
+                    isValidate = true;
+                },
+                onFail: function () {
+                    isValidate = false;
+                },
+                onRefresh: function () {
+                    console.log("刷新");
+                }
+            })
+
+
+            $(".input_login").blur(function () {
+                if ($(this).val().length <= 0) {                    
+                    $(this).next().html(`<span>${$(this).data("msg")}</span>`);
+                    isValidate = false;
+                } else {
+                    $(this).next().html("");
+                    //isValidate = true;
+                }
+            })
+
+            $(".xieyi").click(function () {
+                if ($("#UserName").val().length <= 0) {
+                    $("#UserName").next().html("<span>请输入用户名</span>");
+                    isValidate = false;
+                }
+
+                if ($("#Password").val().length <= 0) {
+                    $("#Password").next().find("span").text("请输入密码");
+                    isValidate = false;
+                }
+
+                if (isValidate) {
+                    $.ajax({
+                        url: "@Url.Action()",
+                        type: "post",
+                        dataType: "json",
+                        data: $("form").serialize(),
+                        success: function (d) {
+                            if (d.ErrorCode > 0) {
+                                $("#msg").text(d.Info);
+                            } else {
+                                window.location.href = "/";
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="logobox">
+        <div class="logos"><a href="/"><img src="/images/logo.jpg" width="226" height="90" /></a></div>
+    </div>
+    <!--内容Begin-->
+    <div id="container">
+        <div class="loginbox">
+            <div class="login_lt"><a href="#"><img src="/images/pic29.jpg" width="525" height="346" /></a></div>
+            <div class="login_rt">
+                <h3><span>欢迎登陆</span><a href="@Url.Action("Register")">免费注册</a></h3>
+                <form>
+                    <table width="302" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td height="64" valign="top">
+                            <input data-msg="请输入用户名" name="UserName" id="UserName" type="text" class="input_login common_text" value="" />
+                            <p><span></span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="90" valign="top">
+                                <input data-msg="请输入密码" type="password" name="Password" id="Password" class="input_login" value="" />
+                                <p>
+                                    <span></span>
+                                </p>
+                                <a href="@Url.Action("ResetPassword")">忘记密码？</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <div id="captcha"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                            <td height="74" valign="top">
+                                <div id="msg"></div>
+                            <input name="" type="button" value="登录" class="xieyi" /></td>
+                        </tr>
+
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--内容End-->
+    <!--页尾Begin-->
+    <div id="footer">
+        <p>©2007-2014 Mbaobao All Rights Reserved. 红缀集团 版权所有，禁止非法复制 经营许可证编号：经营许可证编号：京B2-20100425</p>
+    </div>
+    <!--页尾End-->
+
+    
+</body>
+</html>

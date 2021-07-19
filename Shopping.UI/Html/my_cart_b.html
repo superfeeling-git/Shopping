@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>红缀集团</title>
+<link type="text/css" rel="stylesheet" href="styles/layout.css"  />
+<script type="text/javascript" src="scripts/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="scripts/connom.js" ></script>
+</head>
+<script type="text/javascript">
+function checkradio(){
+	$("dd.xianshiff").show();
+	}
+$(function(){
+	
+		$(".shdzs dt.xianshis").hover(function(){
+		$(this).children("a").show();
+		},function(){
+		$(this).children("a").hide();
+		});
+		
+		$(".shdzs dt input[type=radio]").each(function(x){
+			
+			$(this).click(function(){
+				$("dt").removeClass("gudin")
+				$(this).parents("dt").addClass("gudin");
+				
+				})
+			
+			
+			})
+	
+	})
+
+</script>
+<body name="top">
+
+<!--页头Begin-->
+  <div id="header">
+    <div class="loginbar">
+      <div class="loginbar_child">
+        <ul class="fanhui">
+          <li class="rtn_home"><a href="index.html">返回首页</a></li>
+          <li><a href="login.html">[登录]</a></li>
+          <li><a href="register.html">[免费注册]</a></li>
+        </ul>
+        <ul class="schbox">
+          <li><a href="#">收藏网站</a></li>
+          <li><a href="help.html">帮助中心</a></li>
+          <li class="my_cart"><a href="my_cart_a.html">我的购物车</a></li>
+          <li class="ddan"><a href="my_order.html">我的订单</a></li>    
+        </ul>
+      </div>
+    </div>
+    <div class="logobox">
+       <div class="logos"><a href="index.html"><img src="images/logo.jpg" width="226" height="90" /></a></div>
+       <div class="search_box">
+         <div class="search">
+         <input type="text" class="text1 common_text" value="搜索您需要的商品" /><input name="" type="button" class="button1" />
+         </div>
+         <div class="search_child"><strong>热门搜索：</strong><a href="#">钱包</a><a href="#">旅行包</a><a href="#">挎包</a><a href="#">手提包</a><a href="#">拉杆箱</a></div>
+       </div>
+    </div>
+    <div id="nav_box">
+    <div class="miannav">
+    <div class="nav">
+        <dl class="quanbufle ">
+    <dt><a class="activ">全部商品分类</a></dt>
+    <dd><div class="subnav_child">
+      <ul>
+        <li>
+        <h3><a href="#">时尚女包</a></h3>
+        <p><a href="#">钱包</a><a href="#">手拿包/晚宴包</a><a href="#">单肩包</a><a href="#">双肩包</a><a href="#">手提包</a><a href="#">斜挎包</a><a href="#">钥匙包</a><a href="#">卡包/零钱包</a></p>
+        </li>
+        <li>
+        <h3><a href="#">精品男包</a></h3>
+        <p><a href="#">钱包/卡包</a><a href="#">男士手包</a><a href="#">双肩包</a><a href="#">商务公文包</a><a href="#">单肩/斜挎包</a><a href="#">钥匙包</a></p>
+        </li>
+        <li class="last">
+        <h3><a href="#">功能箱包</a></h3>
+        <p><a href="#">电脑包</a><a href="#">旅行包</a><a href="#">旅行配件</a><a href="#">书包</a><a href="#">休闲运动包</a><a href="#">登山包</a><a href="#">妈咪包</a><a href="#">相机包</a><a href="#">腰包/胸包</a><a href="#"> 拉杆箱/拉杆包</a></p>
+        </li>
+      </ul>
+    </div></dd>
+    </dl>
+    <dl><dt><a href="index.html">商城首页</a></dt></dl>
+    <dl><dt><a href="product_list.html">爆款热卖</a></dt></dl>
+    <dl><dt><a href="product_list.html">时尚女包</a></dt></dl>
+    <dl><dt><a href="product_list.html">精品男包</a></dt></dl>
+    <dl><dt><a href="product_list.html">功能箱包</a></dt></dl>
+    <dl><dt><a href="product_list.html">所有产品</a></dt></dl>
+    </div>
+    </div>
+    </div>
+  </div>
+<!--页头End-->
+
+<!--内容Begin-->
+<div id="container">
+  <div class="cplist">
+      <h2 class="cart_bz"><img src="images/bg23_b.gif" width="1000" height="62" /></h2>
+      <div class="ddxxbox">
+        <h3>收货信息<font>（带*为必填项）</font></h3>
+        <dl class="shdzs">
+          <dt class="gudin"> <b>
+            <input type="radio" name="radio" value="0" />
+            </b>
+            <p>北京市大兴区亦庄经济技术开发区凉水河一街8号（沈万三收） 13565423562</p>
+            <a href="#">默认地址</a><a href="#" class="bianle">修改本地址</a> </dt>
+        </dl>
+        <dl class="shdzs">
+          <dt class="xianshis"> <b>
+            <input type="radio" name="radio" value="1" />
+            </b>
+            <p>北京市大兴区亦庄经济技术开发区凉水河一街8号（沈万三收） 13565423562</p>
+            <a href="#">默认地址</a><a href="#" class="bianle">修改本地址</a> </dt>
+        </dl>
+        <dl class="shdzs">
+          <dt class="xianshis"> <b>
+            <input type="radio" name="radio" value="2" />
+            </b>
+            <p>北京市大兴区亦庄经济技术开发区凉水河一街8号（沈万三收） 13565423562</p>
+            <a href="#">默认地址</a><a href="#" class="bianle">修改本地址</a> </dt>
+        </dl>
+        <dl class="shdzs">
+          <dt> <b>
+            <input type="radio" name="radio"  value="3" onclick="checkradio()" />
+            </b>
+            <p>使用新地址</p>
+          </dt>
+          <dd class="xianshiff">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="100" height="40" align="right" valign="top"><font>*</font>收货人姓名：</td>
+                    <td valign="top"><input name="input" type="text" class="biaod" /></td>
+                  </tr>
+                  <tr>
+                    <td height="40" align="right" valign="top"><font>*</font>收货地址：</td>
+                    <td valign="top"><input name="input" type="text" class="biaod biaod1" /></td>
+                  </tr>
+                  <tr>
+                    <td height="40" align="right" valign="top"><font>*</font>街道地址：</td>
+                    <td valign="top"><select name="select" class="selects">
+                      <option>北京市</option>
+                    </select>
+                      <select name="select" class="selects">
+                        <option>朝阳区</option>
+                      </select>
+                      <select name="select" class="selects">
+                        <option>高碑店</option>
+                    </select></td>
+                  </tr>
+                  <tr>
+                    <td height="40" align="right" valign="top"><font>*</font>联系电话：</td>
+                    <td valign="top"><input name="input" type="text" class="biaod" /></td>
+                  </tr>
+                  <tr>
+                    <td height="40" align="right" valign="top"><font>*</font>固定电话：</td>
+                    <td valign="top"><input name="input" type="text" class="biaod biaod2" />
+                      &nbsp;-&nbsp;
+                    <input name="input" type="text" class="biaod biaod3" /></td>
+                  </tr>
+                  <tr>
+                    <td height="40" align="right" valign="top"><font>*</font>邮政编码：</td>
+                    <td valign="top"><input name="input" type="text" class="biaod" /></td>
+                  </tr>
+                </table></td>
+              </tr>
+              <tr>
+                <td><input name="" type="submit" value="保存收货信息" class="baocun"/></td>
+              </tr>
+            </table>
+          </dd>
+        </dl>
+      </div>
+      <div class="ddxxbox">
+        <h3>配送信息</h3>
+        <div class="psxxs">
+          <p>配送说明：我们将根据您的收货地址选择最优快递为您配送。</p>
+          <table width="100%" border="1" cellspacing="0" cellpadding="0"  class="peisong">
+            <tr>
+              <td width="534" height="34" align="center" valign="middle" bgcolor="#f3f3f3">配送方式</td>
+              <td width="145" align="center" valign="middle" bgcolor="#f3f3f3">运费</td>
+              <td align="center" valign="middle" bgcolor="#f3f3f3">运费说明</td>
+            </tr>
+            <tr>
+              <td height="56" align="center" valign="middle">由红缀商城为您选择最优快递进行配送，预计订单生成后1-2天内发货</td>
+              <td align="center" valign="middle">免运费</td>
+              <td align="center" valign="middle"><font>购物满99元包邮！0-99元快递费用10元！</font></td>
+            </tr>
+          </table>
+          <p>声明：我们会努力进行配送，但因天气、交通等突发或不可抗力因素影响造成订单配送延误现象！还望谅解！</p>
+        </div>
+      </div>
+      <div class="ddxxbox">
+        <h3>支付方式</h3>
+        <div class="bank">
+        <input type="radio" id="gongshang" name="bank" /> <label  id="gongshang_label" for="gongshang" class="banks"><img src="images/bank01.jpg"/></label>
+<input type="radio" id="nongye" name="bank" /> <label  id="nongye_label" for="nongye"  class="banks"><img src="images/bank02.jpg"/></label>
+        
+        </div>
+<script type="text/javascript">
+ ra = document.getElementsByName('bank');
+ len = ra.length;
+ for(i=0;i<len;i++){
+ ra[i].onclick = function(){
+  la = document.getElementsByTagName('label');
+  len2 = la.length;
+  for(j=0;j<len2;j++){
+   la[j].className = la[j].className.replace('checked',''); 
+  }
+  var label_id = this.getAttribute('id')+'_label';
+  var label_obj = document.getElementById(label_id);
+  label_obj.className+=" checked";
+  }
+}
+
+</script>
+      </div>
+      <div class="ddxxbox">
+        <h3>发票信息</h3>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="88" height="40" align="right">是否需要发票：</td>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="20"><input name="" type="radio" value="" /></td>
+                <td width="30">是</td>
+                <td width="20"><input name="" type="radio" value="" /></td>
+                <td>否</td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="fapiao">
+              <tr>
+                <td width="70" height="28" align="right">发票类型：</td>
+                <td>普通机打发票</td>
+              </tr>
+              <tr>
+                <td height="28" align="right">发票抬头：</td>
+                <td><input type="text" class="biaodn common_text" value="个人" /></td>
+              </tr>
+              <tr>
+                <td height="28" align="right">发票内容：</td>
+                <td>购物明细</td>
+              </tr>
+              <tr>
+                <td height="28" align="right"><font>温馨提示：</font></td>
+                <td><font>发票的开票金额不包括红豆支付部分！</font></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table>
+      </div>
+      <div class="ddxxbox">
+        <h3>商品清单</h3>
+        <table border="0" cellspacing="0" cellpadding="0" class="gw_cartes spxxs">
+          <tr>
+            <th width="560" height="35" align="center" bgcolor="#f2f2f2">商品信息</th>
+            <th width="164" align="center" bgcolor="#f2f2f2">单价</th>
+            <th width="140" align="center" bgcolor="#f2f2f2">数量</th>
+            <th width="133" align="center" bgcolor="#f2f2f2">小计</th>
+          </tr>
+          <tr>
+            <td align="left" valign="top"><dl>
+              <dt><a href="#"><img src="images/pic01.jpg"/></a></dt>
+              <dd>
+                <p><a href="#">2014真皮单肩包女包新款 夏季链条女包牛皮
+                  单肩斜挎小包女士包包香槟色均码 </a></p>
+                <p>颜色：<span>粉红色</span></p>
+              </dd>
+            </dl></td>
+            <td align="center" valign="middle">¥209</td>
+            <td align="center" valign="middle">1</td>
+            <td align="center" valign="middle">¥209</td>
+          </tr>
+          <tr>
+            <td align="left" valign="top"><dl>
+              <dt><a href="#"><img src="images/pic02.jpg"/></a></dt>
+              <dd>
+                <p><a href="#">2014真皮单肩包女包新款 夏季链条女包牛皮
+                  单肩斜挎小包女士包包香槟色均码 </a></p>
+                <p>颜色：<span>粉红色</span></p>
+              </dd>
+            </dl></td>
+            <td align="center" valign="middle">2¥09</td>
+            <td align="center" valign="middle">1</td>
+            <td align="center" valign="middle">¥209</td>
+          </tr>
+        </table>
+        <div class="jiesuans">
+          <div class="jiesuans_lt">购物未满99元， 需支付运费 <font>10</font> 元</div>
+          <div class="jiesuans_rt"><span><i>3</i>件商品</span><span>总商品金额(含运费)：<b>¥627.00</b></span></div>
+        </div>
+        <div class="liuyans">
+          <div class="liuyans_lt">
+            <h4>给卖家留言：</h4>
+            <textarea></textarea>
+            </div>
+          <div class="liuyans_rt"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="235" height="80"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="18"><input type="checkbox" name="checkbox" checked="checked" /></td>
+        <td width="65">使用红豆：</td>
+        <td><input type="text" class="biaodns" value="300" />&nbsp;个&nbsp;<font>- ¥3.00</font></td>
+      </tr>
+       <tr>
+        <td></td>
+        <td></td>
+        <td><span>(现有红豆700个)</span></td>
+      </tr>
+    </table></td>
+    <td align="right"><p class="jine">应付金额：<i>¥634</i> 元</p><span>本单可获得红豆：630个</span></td>
+  </tr>
+</table>
+</div>
+        </div>
+        <div class="tijiao"><input name="" type="submit" value="提交订单" class="baocun" /></div>
+      </div>
+    </div></div>
+</div>
+<!--内容End-->
+
+<!--页尾Begin-->  
+  <div id="footer">
+    <div class="footer_msg">
+    <dl>
+       <dt><a href="#">新手课堂</a></dt>
+       <dd><a href="#">新用户注册</a><a href="#">购买流程</a></dd>
+    </dl>
+    <dl>
+       <dt><a href="#">支付方式</a></dt>
+       <dd><a href="#">在线支付</a><a href="#">银行汇款</a><a href="#">发票制度</a></dd>
+    </dl>
+    <dl>
+       <dt><a href="#">配送方式</a></dt>
+       <dd><a href="#">配送运费</a><a href="#">配送范围</a><a href="#">配送流程</a></dd>
+    </dl>
+    <dl>
+       <dt><a href="#">售货服务</a></dt>
+       <dd><a href="#">退换货政策</a><a href="#">退换货流程</a><a href="#">订单跟踪</a></dd>
+    </dl>
+    <dl>
+       <dt><a href="#">帮助中心</a></dt>
+       <dd><a href="#">找回密码</a><a href="#">常见问题</a><a href="#">意见反馈</a></dd>
+    </dl>
+    <dl class="dihuas">
+       <dt>客服热线<br/>400-001-0001</dt>
+       <dd><a href="#">在线客服咨询</a></dd>
+    </dl>
+    </div>
+    <p>©2007-2014 Mbaobao All Rights Reserved. 红缀集团 版权所有，禁止非法复制 经营许可证编号：经营许可证编号：京B2-20100425</p>
+  </div>
+<!--页尾End--> 
+<div class="back_top">
+  <ul>
+    <li class="fhtop"><a href="#top">返回顶部</a></li>
+    <li class="zxzx"><a href="#">在线咨询</a></li>
+    <li class="shops"><a href="#">购物车</a></li>
+    <li class="gzwm"><a href="#">关注我们</a></li>
+  </ul>
+</div>
+</body>
+</html>

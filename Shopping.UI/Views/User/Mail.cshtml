@@ -1,0 +1,17 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@model PagedList<UserModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Mail</title>
+</head>
+<body>
+    @Html.Pager(Model)
+</body>
+</html>

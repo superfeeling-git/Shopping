@@ -42,6 +42,18 @@ namespace Shopping.Dal
         }
 
         /// <summary>
+        /// 根据邮箱判断是否存在
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <returns></returns>
+        public bool IsExistsByEmail(string Email)
+        {
+            ShoppingEntities db = new ShoppingEntities();
+
+            return db.User.Any(m => m.Email == Email);
+        }
+
+        /// <summary>
         /// 根据用户名判断是否存在
         /// </summary>
         /// <param name="UserName"></param>

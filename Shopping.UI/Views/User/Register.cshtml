@@ -1,0 +1,109 @@
+﻿@model RegisterModel
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>红缀集团</title>
+    <link type="text/css" rel="stylesheet" href="/styles/layout.css" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <link href="/jBox/Skins/Blue/jbox.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/jBox/jquery.jBox-2.3.min.js"></script>
+    <script type="text/javascript" src="/jBox/i18n/jquery.jBox-zh-CN.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script type="text/javascript">
+      function showtip(url, tiptitle, tipwidth, tipheight, tiptop) {
+	      // 用iframe显示http://www.baidu.com的内容，并设置了标题、宽与高、按钮
+	      $.jBox("iframe:" + url + "", {
+		      title: tiptitle,
+		      width: tipwidth,
+		      height: tipheight,
+		      top: tiptop
+	      });
+        }
+
+        $.ajax({
+            url: "",
+            type: "",
+            dataType: "json",
+            data: {},
+            success: function (d) {
+                //拼接HTML
+            }
+        })
+
+        function abc(data) {
+            if (data.result == 0) {
+                //失败
+            }
+            else {
+                //成功
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="logobox">
+        <div class="logos"><a href="index.html"><img src="/images/logo.jpg" width="226" height="90" /></a></div>
+    </div>
+    <!--内容Begin-->
+
+    @using (Ajax.BeginForm("Register", new AjaxOptions { HttpMethod = "Post", OnSuccess = "abc" }))    
+    {
+        <div id="container">
+            <div class="loginbox">
+                <div class="loginbox_lt">
+                    <h3>免费注册</h3>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="115" height="62" align="right" valign="top">用户名：</td>
+                            <td valign="top">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "input_login" })
+                                <span>@Html.ValidationMessageFor(m => m.UserName)</span>
+                                <p>6-20个字符，可用中英文和数字组合，不能添加特殊符号！</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="62" align="right" valign="top">设置密码：</td>
+                            <td valign="top">
+                                @Html.PasswordFor(m => m.Password, new { @class = "input_login" })
+                                <span>@Html.ValidationMessageFor(m => m.Password)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="62" align="right" valign="top">确认密码：</td>
+                            <td valign="top">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input_login" })
+
+                                <span>@Html.ValidationMessageFor(m => m.ConfirmPassword)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="40" align="right" valign="top">&nbsp;</td>
+                            <td valign="top"><input name="" type="submit" value="同意协议并注册" class="xieyi" /></td>
+                        </tr>
+                        <tr>
+                            @Html.HiddenFor(m => m.UserID, new { Value = 0 })
+                            <td height="33" align="right" valign="top">&nbsp;</td>
+                            <td valign="top"><a href="javascript:void(0)" onclick="showtip('agreement.html','红缀箱包商城用户协议',910,500,'10%')" style="color:#0066cc">《红缀箱包商城用户协议》</a></td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="loginbox_rt">
+                    <h3>已有账号</h3>
+                    <a href="login.html" class="denglus">登  录</a>
+                    <p><a href="#"><img src="/images/pic28.jpg" width="340" height="165" /></a></p>
+                </div>
+            </div>
+        </div>
+        }
+    <!--内容End-->
+    <!--页尾Begin-->
+    <div id="footer">
+        <p>©2007-2014 Mbaobao All Rights Reserved. 红缀集团 版权所有，禁止非法复制 经营许可证编号：经营许可证编号：京B2-20100425</p>
+    </div>
+    <!--页尾End-->
+</body>
+</html>

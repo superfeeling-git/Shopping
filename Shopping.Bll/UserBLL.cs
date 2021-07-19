@@ -8,12 +8,16 @@ using Shopping.Dal;
 using Shopping.Common;
 using System.Web;
 using System.Web.Security;
+using NLog;
+using System.Configuration;
 
 namespace Shopping.Bll
 {
     public class UserBLL
     {
         UserDAL userDAL = new UserDAL();
+
+        Logger logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// 判断用户是否存在
@@ -126,6 +130,35 @@ namespace Shopping.Bll
             }
         }
 
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="loginModel"></param>
+        public ResultModel Login(RegisterModel registerModel)
+        {
+            var user = userDAL.IsExistsForUser(registerModel.UserName);
+
+            if (user == null)
+            {
+                return new ResultModel { ErrorCode = 2, Info = "无此用户" };
+            }
+            else
+            {
+                if (registerModel.Password.GetMD5() == user.Password)
+                {
+                    HttpContext.Current.Session["user"] = user;
+
+                    return new ResultModel { ErrorCode = 0, Info = "登录成功" };
+                }
+                else
+                {
+                    return new ResultModel { ErrorCode = 3, Info = "密码错误" };
+                }
+            }
+
+        }
+
+
         public int Delete(int id)
         {
             return userDAL.Delete(id);
@@ -134,6 +167,52 @@ namespace Shopping.Bll
         public int Delete(int[] idList)
         {
             return userDAL.Delete(idList);
+        }
+
+        /// <summary>
+        /// 根据邮箱判断是否存在
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <returns></returns>
+        public bool IsExistsByEmail(string Email)
+        {
+            return userDAL.IsExistsByEmail(Email);
+        }
+
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="Email"></param>
+        /// <returns></returns>
+        public ResultModel ResetPassword(string Email)
+        {
+            //可以发送邮件
+            if (IsExistsByEmail(Email))
+            {
+                //构造邮件内容：URL
+                var httpcontext = HttpContext.Current;
+                string Url = $"{httpcontext.Request.Url.Scheme}://{httpcontext.Request.Url.Authority}/user/ChangePassword?email={Email}";
+                var sign = $"{Email}{ConfigurationManager.AppSettings["MailKey"]}".GetMD5();
+                Url += $"&sign={sign}";
+                logger.Info($"生成的邮件URL：{Url}");
+
+                //发送邮件
+                EmailHelper.Send(new FromEmail
+                {
+                    From = ConfigurationManager.AppSettings["from"],
+                    Password = ConfigurationManager.AppSettings["password"],
+                    smtp = ConfigurationManager.AppSettings["smtp"]
+                }, "重置密码", $"<a href='{Url}' target='_blank'>{Url}</a>",
+                new List<string> { Email }
+                );
+            }
+            else
+            {
+                logger.Info(Email);
+                return new ResultModel { ErrorCode = 1, Info = "邮件地址不存在" };
+            }
+
+            return new ResultModel { ErrorCode = 0, Info = "" };
         }
     }
 }

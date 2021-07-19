@@ -1,31 +1,574 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>首页-红缀集团</title>
+    <link type="text/css" rel="stylesheet" href="/styles/layout.css" />
+    <script type="text/javascript" src="/scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/scripts/connom.js"></script>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <script type="text/javascript" src="/scripts/jquery.flexslider.js"></script>
+    <link type="text/css" rel="stylesheet" href="/styles/flexslider.css" />
+</head>
+<script type="text/javascript">
+    $(window).load(function(){
+      $('.flexslider').flexslider({
+        animation: "slide",
+		slideshowSpeed:3000,
+      });
+    });
+</script>
+<body name="top" style=" background:#f5f5f5">
+    <!--页头Begin-->
+    <div id="header">
+        <div class="loginbar">
+            <div class="loginbar_child">
+                <ul class="fanhui">
+                    <li class="rtn_home"><a href="index.html">返回首页</a></li>
+                    @if(Session["user"] == null)
+                    {
+                        <li><a href="login.html">[登录]</a></li>
+                        <li><a href="register.html">[免费注册]</a></li>
+                    }
+                    else {
+                        <li>用户名：xiaojie</li>
+                        <li><a href="@Url.Action("Logout","User")">注销</a></li>
+                    }
+                </ul>
+                <ul class="schbox">
+                    <li><a href="#">收藏网站</a></li>
+                    <li><a href="help.html">帮助中心</a></li>
+                    <li class="my_cart"><a href="my_cart_a.html">我的购物车</a></li>
+                    <li class="ddan"><a href="my_order.html">我的订单</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="logobox">
+            <div class="logos"><a href="index.html"><img src="/images/logo.jpg" width="226" height="90" /></a></div>
+            <div class="search_box">
+                <div class="search">
+                    <input type="text" class="text1 common_text" value="搜索您需要的商品" /><input name="" type="button" class="button1" />
+                </div>
+                <div class="search_child"><strong>热门搜索：</strong><a href="#">钱包</a><a href="#">旅行包</a><a href="#">挎包</a><a href="#">手提包</a><a href="#">拉杆箱</a></div>
+            </div>
+        </div>
+        <div id="nav_box">
+            <div class="miannav">
+                <div class="nav">
+                    <dl class="quanbufle ">
+                        <dt><a class="activ">全部商品分类</a></dt>
+                        <dd>
+                            <div class="subnav_child">
+                                <ul>
+                                    <li>
+                                        <h3><a href="#">时尚女包</a></h3>
+                                        <p><a href="#">钱包</a><a href="#">手拿包/晚宴包</a><a href="#">单肩包</a><a href="#">双肩包</a><a href="#">手提包</a><a href="#">斜挎包</a><a href="#">钥匙包</a><a href="#">卡包/零钱包</a></p>
+                                    </li>
+                                    <li>
+                                        <h3><a href="#">精品男包</a></h3>
+                                        <p><a href="#">钱包/卡包</a><a href="#">男士手包</a><a href="#">双肩包</a><a href="#">商务公文包</a><a href="#">单肩/斜挎包</a><a href="#">钥匙包</a></p>
+                                    </li>
+                                    <li class="last">
+                                        <h3><a href="#">功能箱包</a></h3>
+                                        <p><a href="#">电脑包</a><a href="#">旅行包</a><a href="#">旅行配件</a><a href="#">书包</a><a href="#">休闲运动包</a><a href="#">登山包</a><a href="#">妈咪包</a><a href="#">相机包</a><a href="#">腰包/胸包</a><a href="#"> 拉杆箱/拉杆包</a></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl><dt><a href="index.html">商城首页</a></dt></dl>
+                    <dl><dt><a href="product_list.html">爆款热卖</a></dt></dl>
+                    <dl><dt><a href="product_list.html">时尚女包</a></dt></dl>
+                    <dl><dt><a href="product_list.html">精品男包</a></dt></dl>
+                    <dl><dt><a href="product_list.html">功能箱包</a></dt></dl>
+                    <dl><dt><a href="product_list.html">所有产品</a></dt></dl>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <!--页头End-->
+    <div class="bannerbox">
+        <div class="subnav">
+            <div class="subnav_child">
+                <ul>
+                    <li>
+                        <h3><a href="#">时尚女包</a></h3>
+                        <p><a href="#">钱包</a><a href="#">手拿包/晚宴包</a><a href="#">单肩包</a><a href="#">双肩包</a><a href="#">手提包</a><a href="#">斜挎包</a><a href="#">钥匙包</a><a href="#">卡包/零钱包</a></p>
+                    </li>
+                    <li>
+                        <h3><a href="#">精品男包</a></h3>
+                        <p><a href="#">钱包/卡包</a><a href="#">男士手包</a><a href="#">双肩包</a><a href="#">商务公文包</a><a href="#">单肩/斜挎包</a><a href="#">钥匙包</a></p>
+                    </li>
+                    <li class="last">
+                        <h3><a href="#">功能箱包</a></h3>
+                        <p><a href="#">电脑包</a><a href="#">旅行包</a><a href="#">旅行配件</a><a href="#">书包</a><a href="#">休闲运动包</a><a href="#">登山包</a><a href="#">妈咪包</a><a href="#">相机包</a><a href="#">腰包/胸包</a><a href="#"> 拉杆箱/拉杆包</a></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="siadbox flexslider">
+            <ul class="buypic slides">
+                <li><a href="#" target="_blank"><img src="/images/banner01.jpg" /></a></li>
+                <li><a href="#" target="_blank"><img src="/images/banner02.jpg" /></a></li>
+                <li><a href="#" target="_blank"><img src="/images/banner03.jpg" /></a></li>
+                <li><a href="#" target="_blank"><img src="/images/banner04.jpg" /></a></li>
+            </ul>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <!--内容Begin-->
+    <div class="content">
+        <div class="content_a">&nbsp;</div>
+        <div class="content_b">
+            <div class="icn_box tabAuto">
+                <ul>
+                    <li>今日特价  TODAY</li>
+                    <li>新品到货  NEW</li>
+                    <li>热卖商品  HOT</li>
+                </ul>
+            </div>
+            <div class="tab_nr_box tgh-box">
+                <div>
+                    <dl>
+                        <dt><a href="product.html"><img src="/images/pic01.jpg" /></a></dt>
+                        <dd>
+                            <h3><a href="product.html">2014男包帆布包潮男士手提包公.....</a></h3>
+                            <p>特价：<span>￥99.00</span></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><a href="#"><img src="/images/pic02.jpg" /></a></dt>
+                        <dd>
+                            <h3><a href="#">2014男包帆布包潮男士手提包公.....</a></h3>
+                            <p>特价：<span>￥99.00</span></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><a href="#"><img src="/images/pic03.jpg" /></a></dt>
+                        <dd>
+                            <h3><a href="#">2014男包帆布包潮男士手提包公.....</a></h3>
+                            <p>特价：<span>￥99.00</span></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><a href="#"><img src="/images/pic04.jpg" /></a></dt>
+                        <dd>
+                            <h3><a href="#">2014男包帆布包潮男士手提包公.....</a></h3>
+                            <p>特价：<span>￥99.00</span></p>
+                        </dd>
+                    </dl>
+                </div>
+                <div>
+                    <dl>
+                        <dt><a href="#"><img src="/images/pic04.jpg" /></a></dt>
+                        <dd>
+                            <h3><a href="#">2014男包帆布包潮男士手提包公.....</a></h3>
+                            <p>特价：<span>￥99.00</span></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><a href="#"><img src="/images/pic03.jpg" /></a></dt>
+                        <dd>
+                            <h3><a href="#">2014男包帆布包潮男士手提包公.....</a></h3>
+                            <p>特价：<span>￥99.00</span></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><a href="#"><img src="/images/pic02.jpg" /></a></dt>
+                        <dd>
+                            <h3><a href="#">2014男包帆布包潮男士手提包公.....</a></h3>
+                            <p>特价：<span>￥99.00</span></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><a href="#"><img src="/images/pic01.jpg" /></a></dt>
+                        <dd>
+                            <h3><a href="#">2014男包帆布包潮男士手提包公.....</a></h3>
+                            <p>特价：<span>￥99.00</span></p>
+                        </dd>
+                    </dl>
+                </div>
+                <div>
+                    <dl>
+                        <dt><a href="#"><img src="/images/pic03.jpg" /></a></dt>
+                        <dd>
+                            <h3><a href="#">2014男包帆布包潮男士手提包公.....</a></h3>
+                            <p>特价：<span>￥99.00</span></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><a href="product.html"><img src="/images/pic02.jpg" /></a></dt>
+                        <dd>
+                            <h3><a href="product.html">2014男包帆布包潮男士手提包公.....</a></h3>
+                            <p>特价：<span>￥99.00</span></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><a href="product.html"><img src="/images/pic01.jpg" /></a></dt>
+                        <dd>
+                            <h3><a href="product.html">2014男包帆布包潮男士手提包公.....</a></h3>
+                            <p>特价：<span>￥99.00</span></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><a href="product.html"><img src="/images/pic04.jpg" /></a></dt>
+                        <dd>
+                            <h3><a href="product.html">2014男包帆布包潮男士手提包公.....</a></h3>
+                            <p>特价：<span>￥99.00</span></p>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="content_c">&nbsp;</div>
     </div>
-</div>
+    <!--1F Begin-->
+    <div class="content">
+        <div class="content_a">&nbsp;</div>
+        <div class="content_b">
+            <div class="one_zs">
+                <div class="one_zs_lt">
+                    <h3 class="biaoti1"><span>1F</span><a href="#">精品男包</a></h3>
+                    <div class="xiaotu"><a href="#"><img src="/images/pic06.jpg" /></a></div>
+                    <div class="hot_list">
+                        <a href="#">手拿包/晚宴包</a><a href="#">卡包/零钱包</a><a href="#">双肩包</a><a href="#">手包钱包</a><a href="#">手拿包</a><a href="#">休闲帆布包</a><a href="#">甜美韩范</a><a href="#">热门背壳包</a>
+                    </div>
+                </div>
+                <div class="one_zs_rt">
+                    <div class="baner"><a href="product.html"><img src="/images/pic05.jpg" /></a></div>
+                    <div class="one_ggw">
+                        <a href="product.html"><img src="/images/pic07_a.jpg" /></a>
+                        <a href="product.html"><img src="/images/pic07_b.jpg" /></a>
+                        <a href="product.html"><img src="/images/pic07_c.jpg" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content_c">&nbsp;</div>
+    </div>
+    <div class="content">
+        <div class="content_a">&nbsp;</div>
+        <div class="content_b">
+            <div class="liebiao_list">
+                <dl class="boder1">
+                    <dt><a href="#"><img src="/images/pic08.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder1">
+                    <dt><a href="#"><img src="/images/pic09.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder1">
+                    <dt><a href="#"><img src="/images/pic10.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder1">
+                    <dt><a href="#"><img src="/images/pic11.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder2">
+                    <dt><a href="#"><img src="/images/pic12.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder3">
+                    <dt><a href="#"><img src="/images/pic08.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder3">
+                    <dt><a href="#"><img src="/images/pic09.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder3">
+                    <dt><a href="#"><img src="/images/pic10.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder3">
+                    <dt><a href="#"><img src="/images/pic11.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><a href="#"><img src="/images/pic12.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="content_c">&nbsp;</div>
+    </div>
+    <!--1F End-->
+    <!--2F Begin-->
+    <div class="content">
+        <div class="content_a">&nbsp;</div>
+        <div class="content_b">
+            <div class="one_zs">
+                <div class="one_zs_lt">
+                    <h3 class="biaoti2"><span>2F</span><a href="#">功能箱包</a></h3>
+                    <div class="xiaotu"><a href="#"><img src="/images/pic06.jpg" /></a></div>
+                    <div class="hot_list">
+                        <a href="#">手拿包/晚宴包</a><a href="#">卡包/零钱包</a><a href="#">双肩包</a><a href="#">手包钱包</a><a href="#">手拿包</a><a href="#">休闲帆布包</a><a href="#">甜美韩范</a><a href="#">热门背壳包</a>
+                    </div>
+                </div>
+                <div class="one_zs_rt">
+                    <div class="baner"><a href="#"><img src="/images/pic05.jpg" /></a></div>
+                    <div class="one_ggw">
+                        <a href="#"><img src="/images/pic07_a.jpg" /></a>
+                        <a href="#"><img src="/images/pic07_b.jpg" /></a>
+                        <a href="#"><img src="/images/pic07_c.jpg" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content_c">&nbsp;</div>
+    </div>
+    <div class="content">
+        <div class="content_a">&nbsp;</div>
+        <div class="content_b">
+            <div class="liebiao_list">
+                <dl class="boder1">
+                    <dt><a href="#"><img src="/images/pic08.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder1">
+                    <dt><a href="#"><img src="/images/pic09.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder1">
+                    <dt><a href="#"><img src="/images/pic10.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder1">
+                    <dt><a href="#"><img src="/images/pic11.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder2">
+                    <dt><a href="#"><img src="/images/pic12.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder3">
+                    <dt><a href="#"><img src="/images/pic08.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder3">
+                    <dt><a href="#"><img src="/images/pic09.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder3">
+                    <dt><a href="#"><img src="/images/pic10.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder3">
+                    <dt><a href="#"><img src="/images/pic11.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><a href="#"><img src="/images/pic12.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="content_c">&nbsp;</div>
+    </div>
+    <!--2F End-->
+    <!--3F Begin-->
+    <div class="content">
+        <div class="content_a">&nbsp;</div>
+        <div class="content_b">
+            <div class="one_zs">
+                <div class="one_zs_lt">
+                    <h3 class="biaoti3"><span>3F</span><a href="#">时尚女包</a></h3>
+                    <div class="xiaotu"><a href="#"><img src="/images/pic06.jpg" /></a></div>
+                    <div class="hot_list">
+                        <a href="#">手拿包/晚宴包</a><a href="#">卡包/零钱包</a><a href="#">双肩包</a><a href="#">手包钱包</a><a href="#">手拿包</a><a href="#">休闲帆布包</a><a href="#">甜美韩范</a><a href="#">热门背壳包</a>
+                    </div>
+                </div>
+                <div class="one_zs_rt">
+                    <div class="baner"><a href="#"><img src="/images/pic05.jpg" /></a></div>
+                    <div class="one_ggw">
+                        <a href="#"><img src="/images/pic07_a.jpg" /></a>
+                        <a href="#"><img src="/images/pic07_b.jpg" /></a>
+                        <a href="#"><img src="/images/pic07_c.jpg" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content_c">&nbsp;</div>
+    </div>
+    <div class="content">
+        <div class="content_a">&nbsp;</div>
+        <div class="content_b">
+            <div class="liebiao_list">
+                <dl class="boder1">
+                    <dt><a href="#"><img src="/images/pic08.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder1">
+                    <dt><a href="#"><img src="/images/pic09.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder1">
+                    <dt><a href="#"><img src="/images/pic10.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder1">
+                    <dt><a href="#"><img src="/images/pic11.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder2">
+                    <dt><a href="#"><img src="/images/pic12.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder3">
+                    <dt><a href="#"><img src="/images/pic08.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder3">
+                    <dt><a href="#"><img src="/images/pic09.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder3">
+                    <dt><a href="#"><img src="/images/pic10.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl class="boder3">
+                    <dt><a href="#"><img src="/images/pic11.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><a href="#"><img src="/images/pic12.jpg" /></a></dt>
+                    <dd>
+                        <h3><a href="#">可爱潮流淑女斜挎单肩包</a></h3>
+                        <p>特价：<span>￥99.00</span></p>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="content_c">&nbsp;</div>
+    </div>
+    <!--3F End-->
+    <!--内容End-->
+    <!--页尾Begin-->
+    <div id="footer">
+        <div class="footer_msg">
+            <dl>
+                <dt><a href="#">新手课堂</a></dt>
+                <dd><a href="#">新用户注册</a><a href="#">购买流程</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">支付方式</a></dt>
+                <dd><a href="#">在线支付</a><a href="#">银行汇款</a><a href="#">发票制度</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">配送方式</a></dt>
+                <dd><a href="#">配送运费</a><a href="#">配送范围</a><a href="#">配送流程</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">售货服务</a></dt>
+                <dd><a href="#">退换货政策</a><a href="#">退换货流程</a><a href="#">订单跟踪</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">帮助中心</a></dt>
+                <dd><a href="#">找回密码</a><a href="#">常见问题</a><a href="#">意见反馈</a></dd>
+            </dl>
+            <dl class="dihuas">
+                <dt>客服热线<br />400-001-0001</dt>
+                <dd><a href="#">在线客服咨询</a></dd>
+            </dl>
+        </div>
+        <p>©2007-2014 Mbaobao All Rights Reserved. 红缀集团 版权所有，禁止非法复制 经营许可证编号：经营许可证编号：京B2-20100425</p>
+    </div>
+    <!--页尾End-->
+    <div class="back_top">
+        <ul>
+            <li class="fhtop"><a href="#top">返回顶部</a></li>
+            <li class="zxzx"><a href="#">在线咨询</a></li>
+            <li class="shops"><a href="#">购物车</a></li>
+            <li class="gzwm"><a href="#">关注我们</a></li>
+        </ul>
+    </div>
+</body>
+</html>

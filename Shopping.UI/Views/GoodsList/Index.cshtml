@@ -7,45 +7,87 @@
     <meta name="keywords" content="商品列表" />
     <meta name="description" content="商品列表的说明" />
     <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <style type="text/css">
-        html,body,ul.li{padding:0; margin:0;}
-        *{font-size:14px; line-height:180%;}
+        html, body, ul.li {
+            padding: 0;
+            margin: 0;
+        }
+
+        * {
+            font-size: 14px;
+            line-height: 180%;
+        }
+
         div.goodslist {
             width: 1479px;
             margin: 0px auto;
         }
+
         ul.list li {
             width: 280px;
             border: 1px solid #d6d6d6;
             padding: 15px;
             list-style-type: none;
-            float:left;
-            margin:15px;
-            margin-left:0;
-            margin-right:50px;
+            float: left;
+            margin: 15px;
+            margin-left: 0;
+            margin-right: 50px;
         }
-        ul.list li img{width:280px; }
-        ul.list li b{color:#d31b1b; font-weight:bold;}
-        ul.list li p{font-size:13px; line-height:140%;}
-        ul.list li a {
-            display: block;
-            background: #d31b1b;
-            color:#fff;
-            text-align:center;
-            padding:3px 8px;
-            width:120px;
-            text-decoration:none;
-            float:right;
-            font-size:13px;
-        }
+
+            ul.list li img {
+                width: 280px;
+            }
+
+            ul.list li b {
+                color: #d31b1b;
+                font-weight: bold;
+            }
+
+            ul.list li p {
+                font-size: 13px;
+                line-height: 140%;
+            }
+
+            ul.list li a {
+                display: block;
+                background: #d31b1b;
+                color: #fff;
+                text-align: center;
+                padding: 3px 8px;
+                width: 120px;
+                text-decoration: none;
+                float: right;
+                font-size: 13px;
+            }
     </style>
     <script>
         $(function () {
             $("ul li:nth-child(4n)").css("margin-right", "0");
+
+            
+
+            var data = [{
+                id: 1,
+                price: 20,
+                count: 3
+            }, {
+                id: 2,
+                price: 10,
+                count: 5
+            }, {
+                id: 3,
+                price: 15,
+                count: 6
+            }];
+
+
         })
     </script>
 </head>
 <body>
+    <!--
     <div class="goodslist">
         <ul class="list">
             <li>
@@ -139,5 +181,102 @@
             <div style="clear:both; width:100%; height:0;"></div>
         </ul>
     </div>
+        -->
+
+    <div id="app">
+        <table class="table">
+            <tr>
+                <td>全选</td>
+                <td>ID</td>
+                <td>价格</td>
+                <td>数量</td>
+                <td>小计</td>
+                <td>移除</td>
+            </tr>
+            <tr v-for="(item,index) in goods">
+                <td width="10%">
+                    <input type="checkbox" v-model="checkArr" :value="index" />
+                </td>
+                <td width="20%">
+                    {{item.id}}
+                </td>
+                <td width="20%">
+                    {{item.price}}
+                </td>
+                <td width="20%">
+                    <input type="text" v-model="item.count" />
+                </td>
+                <td width="20%">
+                    {{item.price * item.count}}
+                </td>
+                <td width="20%">
+                    <button type="button" @@click="remove(index)">移除</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <b>
+                        总计：
+                        {{sum}}
+                    </b>
+                    <button type="button" @@click="removeSelect()">移除选中</button>
+                    <button type="button" @@click="createOrder()">提交</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <script>
+        var vue = new Vue({
+            el:"#app",
+            data: {
+                checkArr:[],
+                goods: [{
+                    id: 1,
+                    price: 20,
+                    count: 3
+                }, {
+                    id: 2,
+                    price: 10,
+                    count: 5
+                }, {
+                    id: 3,
+                    price: 15,
+                    count: 6
+                }]
+            },
+            computed: {
+                sum: function () {
+                    let t = 0;
+                    return this.goods.reduce(function (total, el, currentIndex) {                        
+                        return t += el.price * el.count;
+                    },[])
+                }
+            },
+            methods: {
+                remove: function (index) {
+                    this.goods.splice(index,1);
+                },
+                removeSelect: function () {
+                    for (var i = 0; i < this.checkArr.length; i++) {
+                        this.goods.splice(this.checkArr[i],1);
+                    }
+                },
+                createOrder: function () {
+                    let selgoods = this.goods;
+                    $.ajax({
+                        url: "@Url.Action()",
+                        type: "post",
+                        dataType: "json",
+                        data: { goods: selgoods},
+                        success: function (d) {
+
+                        }
+                    })
+                }
+            }
+        });
+    </script>
 </body>
 </html>
