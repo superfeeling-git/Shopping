@@ -24,6 +24,7 @@ namespace Shopping.Dal
     
         public int UserID { get; set; }
         public string UserName { get; set; }
+        public string Email { get; set; }
         public string Password { get; set; }
         public string FullName { get; set; }
         public Nullable<bool> Sex { get; set; }
@@ -33,7 +34,6 @@ namespace Shopping.Dal
         public Nullable<System.DateTime> LastLoginTime { get; set; }
         public string LastLoginIP { get; set; }
         public System.DateTime CreateTime { get; set; }
-        public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShoppingCar> ShoppingCar { get; set; }

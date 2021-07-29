@@ -5,20 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="da1293d41e634ff8b8b84f52089bed36" Name="Diagram1" ZoomLevel="77">
-        <EntityTypeShape EntityType="ShoppingModel.Goods" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoppingModel.GoodsCategory" Width="1.5" PointX="1.5" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoppingModel.OrderGoods" Width="1.5" PointX="9.875" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoppingModel.ShoppingCar" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoppingModel.ShoppingOrder" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoppingModel.User" Width="1.5" PointX="12" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShoppingModel.UserAddress" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
-        <AssociationConnector Association="ShoppingModel.FK_Goods_REFERENCE_GoodsCategory" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoppingModel.FK_OrderGoods_REFERENCE_Goods" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoppingModel.FK_ShoppingCar_REFERENCE_Goods" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoppingModel.FK_OrderGoods_REFERENCE_ShoppingOrder" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoppingModel.FK_ShoppingCar_REFERENCE_User" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoppingModel.FK_ShoppingOrder_REFERENCE_User" ManuallyRouted="false" />
-        <AssociationConnector Association="ShoppingModel.FK_UserAddress_REFERENCE_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShoppingModel.Dict" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ShoppingModel.GoodsCategory" Width="1.5" PointX="1.5" PointY="14.125" />
+        <EntityTypeShape EntityType="ShoppingModel.OrderGoods" Width="1.5" PointX="5.25" PointY="9.625" />
+        <EntityTypeShape EntityType="ShoppingModel.ShoppingCar" Width="1.5" PointX="6" PointY="5.125" />
+        <EntityTypeShape EntityType="ShoppingModel.ShoppingOrder" Width="1.5" PointX="3" PointY="9" />
+        <EntityTypeShape EntityType="ShoppingModel.sysdiagrams" Width="1.5" PointX="8.625" PointY="1" />
+        <EntityTypeShape EntityType="ShoppingModel.User" Width="1.5" PointX="0.75" PointY="4.25" />
+        <EntityTypeShape EntityType="ShoppingModel.UserAddress" Width="1.5" PointX="3" PointY="2.75" />
+        <AssociationConnector Association="ShoppingModel.FK_OrderGoods_REFERENCE_ShoppingOrder" />
+        <AssociationConnector Association="ShoppingModel.FK_ShoppingCar_REFERENCE_User" />
+        <AssociationConnector Association="ShoppingModel.FK_ShoppingOrder_REFERENCE_User" />
+        <AssociationConnector Association="ShoppingModel.FK_UserAddress_REFERENCE_User" />
+        <EntityTypeShape EntityType="ShoppingModel.Goods" Width="1.5" PointX="3.75" PointY="13.75" />
+        <EntityTypeShape EntityType="ShoppingModel.OutMaterial" Width="1.5" PointX="8.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ShoppingModel.Place" Width="1.5" PointX="8.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ShoppingModel.Price" Width="1.5" PointX="7.375" PointY="9.75" />
+        <AssociationConnector Association="ShoppingModel.FK_Goods_REFERENCE_GoodsCategory" />
+        <AssociationConnector Association="ShoppingModel.FK_OrderGoods_REFERENCE_Goods" />
+        <AssociationConnector Association="ShoppingModel.FK_ShoppingCar_REFERENCE_Goods" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -22,7 +22,7 @@ namespace Shopping.Dal
     
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
-        public Nullable<int> ParentID { get; set; }
+        public int ParentID { get; set; }
         public string ParentPath { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

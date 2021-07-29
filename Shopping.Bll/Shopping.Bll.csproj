@@ -52,9 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DictBLL.cs" />
     <Compile Include="GoodsBLL.cs" />
     <Compile Include="GoodsCategoryBLL.cs" />
     <Compile Include="IBaseBLL.cs" />
+    <Compile Include="OutMaterialBLL.cs" />
+    <Compile Include="PlaceBLL.cs" />
+    <Compile Include="PriceBLL.cs" />
+    <Compile Include="SessionCar.cs" />
     <Compile Include="UserBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -73,6 +78,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

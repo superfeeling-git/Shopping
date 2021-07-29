@@ -22,7 +22,7 @@ namespace Shopping.Model
         /// 主键
         ///</Summary>
         [Required(ErrorMessage = "必须项")]
-        public int? CategoryID { get; set; }
+        public int CategoryID { get; set; }
         /// <summary>
         /// 分类名称
         /// </summary>
@@ -35,15 +35,15 @@ namespace Shopping.Model
         ///<Summary>
         /// 商品价格
         ///</Summary>
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
         ///<Summary>
         /// 商品库存
         ///</Summary>
-        public int? Stock { get; set; }
+        public int Stock { get; set; }
         ///<Summary>
         /// 是否上架
         ///</Summary>
-        public bool? IsShow { get; set; }
+        public bool IsShow { get; set; }
         ///<Summary>
         /// 商品介绍
         ///</Summary>
@@ -55,7 +55,12 @@ namespace Shopping.Model
         ///<Summary>
         /// 添加时间
         ///</Summary>
-        public DateTime? CreateTime { get; set; }
+        public DateTime CreateTime { get; set; }
+        public bool IsToday { get; set; }
+        public bool IsNew { get; set; }
+        public bool IsHot { get; set; }
+        public bool IsHome { get; set; }
+
         #endregion
     }
 }

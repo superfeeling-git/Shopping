@@ -4,16 +4,24 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NLog;
+using Shopping.Model;
+using Shopping.Bll;
 
 namespace Shopping.UI.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+        GoodsCategoryBLL goodsCategoryBLL = new GoodsCategoryBLL();
+        GoodsBLL goodsBLL = new GoodsBLL();
+
         public ActionResult Index()
-        {
-            var log = LogManager.GetCurrentClassLogger();
-            log.Info("测试消123123123123123123123123123123息");
+        {          
+            ViewBag.category = goodsCategoryBLL.GetAll();
+
+            ViewBag.IsToday = goodsBLL.GetGoods(4, m => m.IsToday);
+            ViewBag.IsHot = goodsBLL.GetGoods(4, m => m.IsHot);
+            ViewBag.IsNew = goodsBLL.GetGoods(4, m => m.IsNew);
+
             return View();
         }
 

@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.Net.Mail;
 using Webdiyer;
 using Webdiyer.WebControls.Mvc;
+using Shopping.UI.Filters;
 
 namespace Shopping.UI.Controllers
 {
@@ -116,9 +117,24 @@ namespace Shopping.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult ChangePassword()
+        [URLFilter]
+        public ActionResult ChangePassword(string email)
         {
+            ViewBag.email = email;
             return View();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [URLFilter]
+        public ActionResult ChangePassword(UserModel userModel)
+        {
+            userBLL.ResetPassword(userModel);
+            return RedirectToAction("Login");
         }
     }
 }

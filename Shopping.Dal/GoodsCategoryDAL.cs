@@ -15,7 +15,9 @@ namespace Shopping.Dal
             return db.GoodsCategory.ToList().Select(m => new GoodsCategoryModel
             {
                 CategoryID = m.CategoryID,
-                CategoryName = m.CategoryName
+                CategoryName = m.CategoryName,
+                ParentID = m.ParentID,
+                ParentPath = m.ParentPath
             }).ToList();
         }
     }

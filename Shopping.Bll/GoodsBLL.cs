@@ -9,6 +9,7 @@ using Shopping.Dal;
 using Shopping.Model;
 using System.IO;
 using System.Web;
+using System.Linq.Expressions;
 
 namespace Shopping.Bll
 {
@@ -51,10 +52,44 @@ namespace Shopping.Bll
 
         public Tuple<int, int, List<GoodsModel>> GetPageDataTuple(int pageSize, int PageIndex, string Keywords)
         {
-            return goodsDAL.GetPageDataTuple(pageSize, PageIndex, Keywords);
+            return goodsDAL.GetPageDataTuple(pageSize, PageIndex, null);
         }
 
-        public ResultModel Update(GoodsModel Model)
+        /// <summary>
+        /// 获取新品
+        /// </summary>
+        /// <returns></returns>
+        public List<GoodsModel> GetGoods(int Top, Expression<Func<Goods, bool>> expression)
+        {
+            return goodsDAL.GetGoods(Top, expression);
+        }
+
+        /// <summary>
+        /// 多条件排序
+        /// </summary>
+        /// <param name="goodsQuery"></param>
+        /// <param name="Field"></param>
+        /// <param name="OrderBy"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="PageIndex"></param>
+        /// <returns></returns>
+        public Tuple<int, int, List<GoodsModel>> GetPageDataTuple(GoodsQueryModel goodsQuery, string Field, string OrderBy, int pageSize, int PageIndex)
+        {
+            return goodsDAL.GetPageDataTuple(goodsQuery, Field, OrderBy, pageSize, PageIndex);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="PageIndex"></param>
+        /// <returns></returns>
+        public Tuple<int, int, List<GoodsModel>> GetPageDataTuple(int pageSize, int PageIndex)
+        {
+            return goodsDAL.GetPageDataTuple(pageSize, PageIndex);
+        }
+
+            public ResultModel Update(GoodsModel Model)
         {
             try
             {

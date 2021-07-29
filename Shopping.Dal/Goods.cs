@@ -22,14 +22,22 @@ namespace Shopping.Dal
         }
     
         public int GoodsID { get; set; }
-        public Nullable<int> CategoryID { get; set; }
+        public int CategoryID { get; set; }
         public string GoodsName { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public Nullable<int> Stock { get; set; }
-        public Nullable<bool> IsShow { get; set; }
+        public decimal Price { get; set; }
+        public int Stock { get; set; }
+        public bool IsShow { get; set; }
+        public bool IsToday { get; set; }
+        public bool IsNew { get; set; }
+        public bool IsHot { get; set; }
+        public bool IsHome { get; set; }
         public string Details { get; set; }
         public string GoodsPic { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
+        public System.DateTime CreateTime { get; set; }
+        public int OutMaterialID { get; set; }
+        public int PlaceID { get; set; }
+        public int RangeID { get; set; }
+        public Nullable<int> SaleNum { get; set; }
     
         public virtual GoodsCategory GoodsCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

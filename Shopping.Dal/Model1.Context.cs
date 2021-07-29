@@ -12,6 +12,8 @@ namespace Shopping.Dal
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ShoppingEntities : DbContext
     {
@@ -25,12 +27,30 @@ namespace Shopping.Dal
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Goods> Goods { get; set; }
+        public virtual DbSet<Dict> Dict { get; set; }
         public virtual DbSet<GoodsCategory> GoodsCategory { get; set; }
         public virtual DbSet<OrderGoods> OrderGoods { get; set; }
         public virtual DbSet<ShoppingCar> ShoppingCar { get; set; }
         public virtual DbSet<ShoppingOrder> ShoppingOrder { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserAddress> UserAddress { get; set; }
+        public virtual DbSet<Goods> Goods { get; set; }
+        public virtual DbSet<OutMaterial> OutMaterial { get; set; }
+        public virtual DbSet<Place> Place { get; set; }
+        public virtual DbSet<Price> Price { get; set; }
+    
+        public virtual ObjectResult<P_GoodsPage_Result> P_GoodsPage(Nullable<int> pageIndex, Nullable<int> pageSize, ObjectParameter totalCount, ObjectParameter pageCount)
+        {
+            var pageIndexParameter = pageIndex.HasValue ?
+                new ObjectParameter("PageIndex", pageIndex) :
+                new ObjectParameter("PageIndex", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<P_GoodsPage_Result>("P_GoodsPage", pageIndexParameter, pageSizeParameter, totalCount, pageCount);
+        }
     }
 }

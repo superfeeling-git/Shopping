@@ -57,9 +57,18 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Jigsaw, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elkdanger.jigsaw.1.0.0.0\lib\net452\Jigsaw.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.7.10\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -180,8 +189,12 @@
     <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
     <Compile Include="Areas\Admin\Controllers\GoodsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Controllers\CookiesTestController.cs" />
+    <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\URLFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -699,12 +712,15 @@
     <Content Include="Areas\Admin\zui\dist\theme\blue.css" />
     <Content Include="Areas\Admin\zui\img\avatar.jpg" />
     <Content Include="Areas\Admin\zui\js\app.js" />
+    <Content Include="CodeProjectArticle.html" />
+    <Content Include="Content\abc.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrapValidator.css" />
     <Content Include="Content\bootstrapValidator.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1132,6 +1148,12 @@
     <Content Include="images\g27.gif" />
     <Content Include="images\g28.gif" />
     <Content Include="images\ic36.jpg" />
+    <Content Include="images\image\01.jpg" />
+    <Content Include="images\image\02.jpg" />
+    <Content Include="images\image\03.jpg" />
+    <Content Include="images\img\02640.jpg" />
+    <Content Include="images\img\02657.jpg" />
+    <Content Include="images\img\02674.jpg" />
     <Content Include="images\logo.jpg" />
     <Content Include="images\logo.png" />
     <Content Include="images\pic01.jpg" />
@@ -1437,6 +1459,7 @@
     <Content Include="Scripts\UrlHelper.js" />
     <Content Include="styles\flexslider.css" />
     <Content Include="styles\layout.css" />
+    <Content Include="test.html" />
     <Content Include="zui-admin\component-checkbox-radio.html" />
     <Content Include="zui-admin\component-step.html" />
     <Content Include="zui-admin\config.html" />
@@ -1994,6 +2017,13 @@
     <Content Include="Views\User\Mail.cshtml" />
     <Content Include="Views\User\ResetPassword.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\Shared\Top.cshtml" />
+    <Content Include="Views\Goods\Index.cshtml" />
+    <Content Include="Views\Goods\List.cshtml" />
+    <Content Include="Views\Goods\GoodsList.cshtml" />
+    <Content Include="Views\CookiesTest\JsCookies.cshtml" />
+    <Content Include="Views\Goods\Detail.cshtml" />
+    <Content Include="Views\Goods\AddCarSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

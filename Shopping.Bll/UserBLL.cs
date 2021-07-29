@@ -214,5 +214,16 @@ namespace Shopping.Bll
 
             return new ResultModel { ErrorCode = 0, Info = "" };
         }
+
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="userModel"></param>
+        /// <returns></returns>
+        public int ResetPassword(UserModel userModel)
+        {
+            userModel.Password = userModel.Password.GetMD5();
+            return userDAL.ResetPassword(userModel);
+        }
     }
 }

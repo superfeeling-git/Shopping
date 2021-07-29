@@ -1,0 +1,224 @@
+﻿@model Tuple<int,int, List< GoodsModel >>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>红缀集团</title>
+    <link type="text/css" rel="stylesheet" href="/styles/layout.css" />
+    <script type="text/javascript" src="/scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/scripts/superslide.js"></script>
+    <script type="text/javascript" src="/scripts/connom.js"></script>
+    <script src="~/Scripts/UrlHelper.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".product_list dl:nth-child(4n)").css("margin-right", "0px");
+
+            $("#Query a,.renqi_top a").click(function () {
+                var parmName = $(this).data("parm");
+                var parmValue = $(this).data("id");
+
+                setParmsValue(parmName, parmValue);
+            })
+        })
+    </script>
+</head>
+
+<body name="top">
+    @Html.Action("Top", "Shared")
+    <!--内容Begin-->
+    <div id="container">
+        <div class="cplist">
+            <div class="cont_lt">
+                <div class="leftnav">
+                    <ul>
+                        <li>
+                            <h3 class="cur">潮流女包</h3>
+                            <p class="first"><a href="#">钱包</a><a href="#">手拿包/晚宴包</a><a href="#">单肩包</a><a href="#">双肩包</a><a href="#">手提包</a><a href="#">斜挎包</a><a href="#">钥匙包</a><a href="#">卡包/零钱包</a></p>
+                        </li>
+                        <li>
+                            <h3>精品男包</h3>
+                            <p><a href="#">钱包/卡包</a><a href="#">男士手包</a><a href="#">双肩包</a><a href="#">商务公文包</a><a href="#">单肩/斜挎包</a><a href="#">钥匙包</a></p>
+                        </li>
+                        <li class="last">
+                            <h3>功能箱包</h3>
+                            <p><a href="#">电脑包</a><a href="#">旅行包</a><a href="#">旅行配件</a><a href="#">书包</a><a href="#">休闲运动包</a><a href="#">登山包</a><a href="#">妈咪包</a><a href="#">相机包</a><a href="#">腰包/胸包</a><a href="#"> 拉杆箱/拉杆包</a></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hot_rcmdtion">
+                    <h2>热卖推荐</h2>
+                    <dl>
+                        <dt><a href="product.html"><img src="images/pic14.jpg" /></a></dt>
+                        <dd>
+                            <span>¥278.00</span><p>
+                                <a href="product.html">
+                                    2014新款复古链条包欧美斜挎单
+                                    肩包糖果色女包小包女....
+                                </a>
+                            </p>
+                        </dd>
+                    </dl><dl>
+                        <dt><a href="product.html"><img src="images/pic15.jpg" /></a></dt>
+                        <dd>
+                            <span>¥278.00</span><p>
+                                <a href="product.html">
+                                    2014新款复古链条包欧美斜挎单
+                                    肩包糖果色女包小包女....
+                                </a>
+                            </p>
+                        </dd>
+                    </dl><dl>
+                        <dt><a href="#"><img src="images/pic16.jpg" /></a></dt>
+                        <dd>
+                            <span>¥278.00</span><p>
+                                <a href="#">
+                                    2014新款复古链条包欧美斜挎单
+                                    肩包糖果色女包小包女....
+                                </a>
+                            </p>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="guanggtu"><img src="images/pic13.jpg" /></div>
+            </div>
+            <div class="cont_rt">
+                <div class="rightnav">
+                    <div class="back_hm"><a href="#">首页</a>　>　<a href="#">潮流女包</a>　>　<span>钱包</span></div>
+                    <div class="tiaojian" id="Query">
+                        <dl>
+                            <dt>价格：</dt>
+                            <dd>
+                                @foreach (var item in ViewBag.price as List<PriceModel>)
+                                {
+                                    
+                                    <a href="javascript:;" @Html.Raw(item.RangeID == Convert.ToInt32(Request.QueryString["rangeid"])?"class=\"activ\"":"") data-id="@item.RangeID" data-parm="rangeid">@item.RangeName</a>
+                                }
+
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>材质：</dt>
+                            <dd>
+                                @foreach (var item in ViewBag.@out as List<OutMaterialModel>)
+                                {
+                                    <a href="javascript:;" @Html.Raw(item.OutMaterialID == Convert.ToInt32(Request.QueryString["OutID"])?"class=\"activ\"":"")  data-id="@item.OutMaterialID" data-parm="outid">@item.OutMaterialName</a>
+                                }
+                            </dd>
+                        </dl>
+                        <dl class="last">
+                            <dt>适用场合：</dt>
+                            <dd>
+                                @foreach (var item in ViewBag.place as List<PlaceModel>)
+                                {
+                                    <a href="javascript:;" @Html.Raw(item.PlaceID == Convert.ToInt32(Request.QueryString["placeid"])?"class=\"activ\"":"") data-id="@item.PlaceID" data-parm="placeid">@item.PlaceName</a>
+                                }
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div class="tiaojian">
+                        <dl>
+                            <dt>价格：</dt>
+                            <dd>
+                                @foreach (var item in ViewBag.price as List<PriceModel>)
+                                {
+                                    <a href="@Url.Action("Index",new {categoryID = Request.QueryString["categoryID"], price = item.RangeID, place = Request.QueryString["place"],@out=Request.QueryString["out"] })">@item.RangeName</a>
+                                }
+
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>材质：</dt>
+                            <dd>
+                                @foreach (var item in ViewBag.@out as List<OutMaterialModel>)
+                                {
+                                    <a href="@Url.Action("Index",new {categoryID = Request.QueryString["categoryID"], price = Request.QueryString["price"], place = Request.QueryString["place"],@out = item.OutMaterialID })">@item.OutMaterialName</a>
+                                }
+                            </dd>
+                        </dl>
+                        <dl class="last">
+                            <dt>适用场合：</dt>
+                            <dd>
+                                @foreach (var item in ViewBag.place as List<PlaceModel>)
+                                {
+                                    <a href="@Url.Action("Index",new {categoryID = Request.QueryString["categoryID"], price = Request.QueryString["price"], place = item.PlaceID,@out = Request.QueryString["out"] })">@item.PlaceName</a>
+                                }
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="renqi_top">
+                    <div class="renqi_top_lt">
+                    <a href="#" class="activ">默认</a>
+                    <a href="#" class="last" data-parm="field" data-id="SaleNum">销量最高 ↑</a>
+                    <a href="javascript:;" class="last" data-parm="field" data-id="price">价格最低 ↓</a>
+                    </div>
+                    <div class="renqi_top_rt"><span>1</span> /10</div>
+                </div>
+                <div class="product_list">
+                    @foreach (var item in Model.Item3)
+                    {
+                        <dl>
+                            <dt><a href="/Product/View/@item.GoodsID"><img src="@item.GoodsPic" /></a></dt>
+                            <dd>
+                                <p class="money">¥<i>@item.Price</i><span>¥@item.Price</span></p>
+                                <p><a href="product.html">木村井泓原宿双肩包个性...</a></p>
+                            </dd>
+                        </dl>
+                    }
+                </div>
+                <div class="page">
+                    <span class="prev">上一页</span>
+                    <font>1</font>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    &nbsp;&nbsp;...&nbsp;&nbsp;
+                    <a href="#" class="next">下一页</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--内容End-->
+    <!--页尾Begin-->
+    <div id="footer">
+        <div class="footer_msg">
+            <dl>
+                <dt><a href="#">新手课堂</a></dt>
+                <dd><a href="#">新用户注册</a><a href="#">购买流程</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">支付方式</a></dt>
+                <dd><a href="#">在线支付</a><a href="#">银行汇款</a><a href="#">发票制度</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">配送方式</a></dt>
+                <dd><a href="#">配送运费</a><a href="#">配送范围</a><a href="#">配送流程</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">售货服务</a></dt>
+                <dd><a href="#">退换货政策</a><a href="#">退换货流程</a><a href="#">订单跟踪</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">帮助中心</a></dt>
+                <dd><a href="#">找回密码</a><a href="#">常见问题</a><a href="#">意见反馈</a></dd>
+            </dl>
+            <dl class="dihuas">
+                <dt>客服热线<br />400-001-0001</dt>
+                <dd><a href="#">在线客服咨询</a></dd>
+            </dl>
+        </div>
+        <p>©2007-2014 Mbaobao All Rights Reserved. 红缀集团 版权所有，禁止非法复制 经营许可证编号：经营许可证编号：京B2-20100425</p>
+    </div>
+    <!--页尾End-->
+    <div class="back_top">
+        <ul>
+            <li class="fhtop"><a href="#top">返回顶部</a></li>
+            <li class="zxzx"><a href="#">在线咨询</a></li>
+            <li class="shops"><a href="#">购物车</a></li>
+            <li class="gzwm"><a href="#">关注我们</a></li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -7,16 +7,17 @@ using Shopping.Model;
 using System.Data.Entity;
 using System.Linq.Dynamic.Core;
 using EntityFramework.Extensions;
+using System.Linq.Expressions;
+using System.Data.Entity.Core.Objects;
+using Newtonsoft.Json;
 
 namespace Shopping.Dal
 {
-    public class GoodsDAL : IBaseDAL<GoodsModel>
+    public class GoodsDAL
     {
         public int Create(GoodsModel TModel)
         {
             ShoppingEntities db = new ShoppingEntities();
-
-            
 
             Goods goods = new Goods
             {
@@ -31,12 +32,6 @@ namespace Shopping.Dal
             };
 
             db.Entry<Goods>(goods).State = EntityState.Added;
-
-            //lkasfjlakhdfkashdklfads
-
-            /*db.Goods.Add(goods);
-
-            db.Set<Goods>().Add(goods);*/
 
             return db.SaveChanges();
         }
@@ -55,6 +50,19 @@ namespace Shopping.Dal
         public List<GoodsModel> GetAll()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 获取新品
+        /// </summary>
+        /// <returns></returns>
+        public List<GoodsModel> GetGoods(int Top, Expression<Func<Goods, bool>> expression)
+        {
+            ShoppingEntities db = new ShoppingEntities();
+
+            var list = db.Goods.Where(expression).Take(Top).ToList().MapToList<Goods, GoodsModel>();
+
+            return list;
         }
 
         /// <summary>
@@ -78,11 +86,146 @@ namespace Shopping.Dal
             }).FirstOrDefault();
         }
 
-        public Tuple<int, int, List<GoodsModel>> GetPageDataTuple(int pageSize, int PageIndex, string Keywords)
+        /*
+        public Tuple<int, int, List<GoodsModel>> GetPageDataTuple<TKey>(GoodsQueryModel goodsQuery, Expression<Func<Goods, TKey>> keySelector, int pageSize, int PageIndex)
+        {
+            //C#基础    泛型、反射、委托、多线程、Async/await（异步方法）
+
+            ShoppingEntities db = new ShoppingEntities();
+
+            var list = db.Goods.AsQueryable();
+
+            #region 条件判断
+
+            if (!string.IsNullOrEmpty(goodsQuery.Keywords))
+            {
+                list = list.Where(m => m.GoodsName.Contains(goodsQuery.Keywords));
+            }
+
+            if (goodsQuery.CategoryID != null)
+            {
+                list = list.Where(m => m.CategoryID == goodsQuery.CategoryID);
+            }
+
+            if (goodsQuery.PlaceID != null)
+            {
+                list = list.Where(m => m.PlaceID == goodsQuery.PlaceID);
+            }
+
+            if (goodsQuery.OutID != null)
+            {
+                list = list.Where(m => m.OutMaterialID == goodsQuery.OutID);
+            }
+
+            if (goodsQuery.RangeID != null)
+            {
+                list = list.Where(m => m.RangeID == goodsQuery.RangeID);
+            }
+
+            #endregion
+
+            list = list.OrderBy(keySelector) ;
+
+            //总条数
+            var TotalCount = list.Count();
+
+            //总页数
+            var PageCount = (int)Math.Ceiling(TotalCount * 1.0 / pageSize);
+
+            //返回数据
+            return new Tuple<int, int, List<GoodsModel>>(item1: TotalCount, item2: PageCount, item3: Goodslist);
+        }
+        */
+
+        /// <summary>
+        /// 多条件排序
+        /// </summary>
+        /// <param name="goodsQuery"></param>
+        /// <param name="Field"></param>
+        /// <param name="OrderBy"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="PageIndex"></param>
+        /// <returns></returns>
+        public Tuple<int, int, List<GoodsModel>> GetPageDataTuple(GoodsQueryModel goodsQuery, string Field, string OrderBy, int pageSize, int PageIndex)
         {
             ShoppingEntities db = new ShoppingEntities();
 
-            var list = db.GoodsCategory.Join(db.Goods, a => a.CategoryID, b => b.CategoryID, (a, b) => new GoodsModel {
+            var list = db.Goods.AsQueryable();
+
+            #region 条件判断
+
+            if (!string.IsNullOrEmpty(goodsQuery.Keywords))
+            {
+                list = list.Where(m => m.GoodsName.Contains(goodsQuery.Keywords));
+            }
+
+            if (goodsQuery.CategoryID != null)
+            {
+                list = list.Where(m => m.CategoryID == goodsQuery.CategoryID);
+            }
+
+            if (goodsQuery.PlaceID != null)
+            {
+                list = list.Where(m => m.PlaceID == goodsQuery.PlaceID);
+            }
+
+            if (goodsQuery.OutID != null)
+            {
+                list = list.Where(m => m.OutMaterialID == goodsQuery.OutID);
+            }
+
+            if (goodsQuery.RangeID != null)
+            {
+                list = list.Where(m => m.RangeID == goodsQuery.RangeID);
+            }
+
+            #endregion
+
+            var Goodslist = list.OrderBy($"{Field} {OrderBy}").Page(PageIndex, pageSize).MapToList<Goods, GoodsModel>();
+
+            //总条数
+            var TotalCount = list.Count();
+
+            //总页数
+            var PageCount = (int)Math.Ceiling(TotalCount * 1.0 / pageSize);
+
+            //返回数据
+            return new Tuple<int, int, List<GoodsModel>>(item1: TotalCount, item2: PageCount, item3: Goodslist);
+        }
+
+        /// <summary>
+        /// 通过存储过程调用分页
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="PageIndex"></param>
+        /// <returns></returns>
+        public Tuple<int, int, List<GoodsModel>> GetPageDataTuple(int pageSize, int PageIndex)
+        {
+            ShoppingEntities db = new ShoppingEntities();
+
+            ObjectParameter totalcount = new ObjectParameter("TotalCount", typeof(int));
+
+            ObjectParameter pagecount = new ObjectParameter("PageCount", typeof(int));
+
+            var list = db.P_GoodsPage(PageIndex, pageSize, totalcount, pagecount);
+
+            //序列化
+            var json = JsonConvert.SerializeObject(list);
+
+            return new Tuple<int, int, List<GoodsModel>>
+                (
+                item1: (int)totalcount.Value,
+                item2: (int)pagecount.Value,
+                item3: JsonConvert.DeserializeObject<List<GoodsModel>>(json)
+                );
+        }
+
+        public Tuple<int, int, List<GoodsModel>> GetPageDataTuple(int pageSize, int PageIndex, QueryBaseModel queryBase)
+        {
+            ShoppingEntities db = new ShoppingEntities();
+
+            var list = db.GoodsCategory.Join(db.Goods, a => a.CategoryID, b => b.CategoryID, (a, b) => new GoodsModel
+            {
                 CategoryID = a.CategoryID,
                 CategoryName = a.CategoryName,
                 Details = b.Details,
@@ -90,14 +233,18 @@ namespace Shopping.Dal
                 GoodsPic = b.GoodsPic,
                 IsShow = b.IsShow,
                 Price = b.Price,
-                Stock = b.Stock, 
-                CreateTime = b.CreateTime, 
-                GoodsID = b.GoodsID
-            }).AsQueryable();
+                Stock = b.Stock,
+                CreateTime = b.CreateTime,
+                GoodsID = b.GoodsID,
+                IsHome = b.IsHome,
+                IsHot = b.IsHot,
+                IsNew = b.IsNew,
+                IsToday = b.IsToday
+            }).Where(m => m.IsShow);
 
-            if (!string.IsNullOrWhiteSpace(Keywords))
+            if (!string.IsNullOrWhiteSpace(queryBase.Keywords))
             {
-                list = list.Where(m => m.GoodsName.Contains(Keywords));
+                list = list.Where(m => m.GoodsName.Contains(queryBase.Keywords));
             }
 
             //分页数据

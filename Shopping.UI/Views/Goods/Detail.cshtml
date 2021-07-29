@@ -1,0 +1,448 @@
+﻿@model GoodsModel
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>红缀集团</title>
+    <link type="text/css" rel="stylesheet" href="/styles/layout.css" />
+    <script type="text/javascript" src="/scripts/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/scripts/connom.js"></script>
+    <script type=text/javascript src="/scripts/base.js"></script>
+    <script type=text/javascript src="/scripts/lib.js"></script>
+    <script type=text/javascript src="/scripts/163css.js"></script>
+    <link href="/jBox/Skins/Blue/jbox.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/jBox/jquery.jBox-2.3.min.js"></script>
+    <script type="text/javascript" src="/jBox/i18n/jquery.jBox-zh-CN.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".product_list dl:nth-child(4n)").css("margin-right", "0px");
+
+            $(".colors ul li").click(function () {
+                $(".colors ul li").removeClass("activ");
+                $(this).addClass("activ");
+            });
+
+
+            $(".addcar").click(function () {
+
+                //购买数量
+                var BuyCount = $(".BuyCount").val();
+
+                //商品ID
+                var id = @ViewContext.RouteData.Values["id"];
+
+                $.ajax({
+                    url: "/Goods/AddCar",
+                    type: "post",
+                    dataType: "json",
+                    data: { BuyCount: BuyCount, GoodsID:id},
+                    success: function (d) {
+                        console.log(d);
+                        showtip('/Goods/AddCarSuccess', '', 450, 200, '30%')
+                    }
+                })
+            })
+
+
+        })
+
+        function showtip(url, tiptitle, tipwidth, tipheight, tiptop) {
+            // 用iframe显示http://www.baidu.com的内容，并设置了标题、宽与高、按钮
+            $.jBox("iframe:" + url + "", {
+                title: tiptitle,
+                width: tipwidth,
+                height: tipheight,
+                top: tiptop
+            });
+        };
+
+        window.onload = function () {
+            var oTitle = document.getElementById("title").children;
+            var oContent = document.getElementById("contents").children;
+            for (var i = 0; i < oTitle.length; i++) {
+                oTitle[i].index = i;//增加一个自定义属性
+            }
+            for (var i = 0; i < oTitle.length; i++) {
+                oTitle[i].onclick = function () {//onmouseover
+                    for (var i = 0; i < oTitle.length; i++) {
+
+                        oTitle[i].className = "";
+                        oContent[i].style.display = "none";//先去掉className，display变为n“none”
+                        oTitle[this.index].className = "activ";
+                        oContent[this.index].style.display = "block";
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body name="top">
+
+    <!--页头Begin-->
+    @Html.Action("Top", "Shared")
+    <!--页头End-->
+    <!--内容Begin-->
+    <div id="container">
+        <div class="back_hm_xq"><a href="#">所有分类</a>　>　<a href="#">潮流女包</a>　>　<a href="#"> 斜挎包</a>　>　<span>笑薇2014夏季新款韩版包包女包时尚斜跨包单肩包手提包休闲斜挎包</span></div>
+        <div class="zhanshibox">
+            <div class="zhanshibox_lt" id="preview">
+                <div class="bigbox jqzoom" id="spec-n1">
+                    @{ 
+                        var picArr = Model.GoodsPic.Split(',');
+                    }
+                    <img src="@picArr[0]" jqimg="@picArr.First()" width="430" height="398" />
+                </div>
+                <div class="smailbox" id="spec-n5">
+                    <div class="prves" id="spec-left"><a>prves</a></div>
+                    <div class="tubox" id="spec-list">
+                        <ul class="list-h">
+                            @foreach (var item in picArr)
+                            {
+                                <li><a><img src="@item" /></a></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="nexts" id="spec-right"><a>nexts</a></div>
+                </div>
+                <script type=text/javascript>
+                    $(function () {
+                        $(".jqzoom").jqueryzoom({
+                            xzoom: 400,
+                            yzoom: 400,
+                            offset: 10,
+                            position: "right",
+                            preload: 1,
+                            lens: 1
+                        });
+                        $("#spec-list").jdMarquee({
+                            deriction: "left",
+                            width: 375,
+                            height: 70,
+                            step: 2,
+                            speed: 5,
+                            delay: 10,
+                            control: true,
+                            _front: "#spec-right",
+                            _back: "#spec-left"
+                        });
+                        $("#spec-list img").bind("mouseover", function () {
+                            var src = $(this).attr("src");
+                            $("#spec-n1 img").eq(0).attr({
+                                src: src.replace("\/n5\/", "\/n1\/"),
+                                jqimg: src.replace("\/n5\/", "\/n0\/")
+                            });
+                            $(this).css({
+                                "border": "1px solid #a50301",
+                            });
+                        }).bind("mouseout", function () {
+                            $(this).css({
+                                "border": "1px solid #efefef",
+                            });
+                        });
+                    })
+                </script>
+            </div>
+            <div class="zhanshibox_rt">
+                <h3><a href="#">@Model.GoodsName</a></h3>
+                <dl class="jiages"><dt>市场价</dt><dd><i>¥176.00</i></dd></dl>
+                <dl class="jiages thjia"><dt>特惠价</dt><dd>¥<strong>79.00</strong></dd></dl>
+                <dl class="jiages"><dt>销售情况</dt><dd>三个月内售出<span>591</span>件  |  浏览246729次</dd></dl>                
+                <dl class="jiages gmsl">
+                    <dt>购买数量</dt>
+                    <dd>
+                        <input name="" id="content1_2text" type="text" value="1" />
+                        <input name="" type="button" id="content1_2but1" class="BuyCount" /><br />
+                        <input name="" type="button" id="content1_2but2" />
+                    </dd>
+                </dl>
+                <dl class="jiages ljgm"><dt>&nbsp;</dt><dd><a href="#" class="ljgm1">立即购买</a>
+                    <a href="javascript:void(0)" class="ljgm2 addcar">加入购物车</a></dd></dl>
+                <dl class="jiages"><dt>支付方式</dt><dd><a href="#">在线支付</a> <a href="#">银联支付</a> <a href="#">银行打款</a> <a href="#">银行转账</a></dd></dl>
+                <dl class="jiages"><dt>服务承诺</dt><dd><a href="#">快速发货</a> <a href="#">正品保证</a></dd></dl>
+                <dl class="jiages"><dt>新旧程度</dt><dd><a href="#">全新</a></dd></dl>
+            </div>
+        </div>
+        <div class="cplist">
+            <div class="cont_lt">
+                <div class="leftnav" style="border:1px solid #dfdfdf;">
+                    <h2 class="clabiti">相关分类</h2>
+                    <ul style="border-top:1px solid #dfdfdf;">
+                        <li>
+                            <h3 class="cur">潮流女包</h3>
+                            <p class="first"><a href="#">钱包</a><a href="#">手拿包/晚宴包</a><a href="#">单肩包</a><a href="#">双肩包</a><a href="#">手提包</a><a href="#">斜挎包</a><a href="#">钥匙包</a><a href="#">卡包/零钱包</a></p>
+                        </li>
+                        <li>
+                            <h3>精品男包</h3>
+                            <p><a href="#">钱包/卡包</a><a href="#">男士手包</a><a href="#">双肩包</a><a href="#">商务公文包</a><a href="#">单肩/斜挎包</a><a href="#">钥匙包</a></p>
+                        </li>
+                        <li class="last">
+                            <h3>功能箱包</h3>
+                            <p><a href="#">电脑包</a><a href="#">旅行包</a><a href="#">旅行配件</a><a href="#">书包</a><a href="#">休闲运动包</a><a href="#">登山包</a><a href="#">妈咪包</a><a href="#">相机包</a><a href="#">腰包/胸包</a><a href="#"> 拉杆箱/拉杆包</a></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hot_rcmdtion">
+                    <h2>热卖推荐</h2>
+                    <dl>
+                        <dt><a href="product.html"><img src="images/pic14.jpg" /></a></dt>
+                        <dd>
+                            <span>¥278.00</span><p>
+                                <a href="product.html">
+                                    2014新款复古链条包欧美斜挎单
+                                    肩包糖果色女包小包女....
+                                </a>
+                            </p>
+                        </dd>
+                    </dl><dl>
+                        <dt><a href="product.html"><img src="images/pic15.jpg" /></a></dt>
+                        <dd>
+                            <span>¥278.00</span><p>
+                                <a href="product.html">
+                                    2014新款复古链条包欧美斜挎单
+                                    肩包糖果色女包小包女....
+                                </a>
+                            </p>
+                        </dd>
+                    </dl><dl>
+                        <dt><a href="#"><img src="images/pic16.jpg" /></a></dt>
+                        <dd>
+                            <span>¥278.00</span><p>
+                                <a href="#">
+                                    2014新款复古链条包欧美斜挎单
+                                    肩包糖果色女包小包女....
+                                </a>
+                            </p>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="guanggtu"><img src="images/pic13.jpg" /></div>
+            </div>
+            <div class="cont_rt">
+                <div class="shopcp" id="title"><a href="javascript:void(0)" class="activ">商品信息</a><a href="javascript:void(0)">为您推荐</a><a href="javascript:void(0)">购物保障</a></div>
+                <div id="contents">
+                    <div class="xinxis">
+                        <div class="canshu">
+                            <h3 class="bitis">产品参数</h3>
+                            <ul class="canshus">
+                                <li>品牌名称：<span>红缀</span></li>
+                                <li>商品编号：<span>hz2040524</span></li>
+                                <li>产品型号：<span>红缀HZ2145621</span></li>
+                                <li>产品类别：<span>女士手提包</span></li>
+                                <li>性别：<span>女</span></li>
+                                <li>上市时间：<span>2014年夏季</span></li>
+                                <li>颜色：<span>粉红、黑色、棕色、玫红、白色.....</span></li>
+                                <li>容量：<span>1L</span></li>
+
+                                <li>重量：<span>0.8kg</span></li>
+                                <li>结构/功能：<span>斜挎包</span></li>
+                                <li>尺寸：<span>46CM*28CM*22CM</span></li>
+                                <li>面料材质：<span>真皮头层皮</span></li>
+                                <li>里料材质：<span>涤纶</span></li>
+                                <li>防水水性：<span>防水</span></li>
+                                <li>有无夹层：<span>有</span></li>
+                                <li>箱包硬度：<span>软</span></li>
+
+                                <li>拉杆材质：<span>不锈钢</span></li>
+                                <li>拉杆高度：<span>60cm</span></li>
+                                <li>箱体内尺寸：<span>46CM*28CM*22CM</span></li>
+                                <li>滚轮样式：<span>2轮万向轮</span></li>
+                                <li>锁具功能：<span>密码锁</span></li>
+                                <li>是否配包：<span>否</span></li>
+                            </ul>
+                        </div>
+                        <div class="tupianbox"><img src="images/pic27.jpg" width="760" height="2294" /></div>
+                    </div>
+                    <div class="xinxis">
+                        <div class="product_list">
+                            <dl>
+                                <dt><a href="product.html"><img src="images/pic20.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="product.html">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="product.html"><img src="images/pic14.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="product.html">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="product.html"><img src="images/pic16.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="product.html">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic15.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic17.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic19.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="product.html"><img src="images/pic18.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="product.html">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic20.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic20.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic14.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic16.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic15.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic17.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic19.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic18.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic20.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic14.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic16.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic15.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><a href="#"><img src="images/pic17.jpg" /></a></dt>
+                                <dd>
+                                    <p class="money">¥<i>119.00</i><span>¥218.00</span></p>
+                                    <p><a href="#">木村井泓原宿双肩包个性...</a></p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="xinxis">
+                        3
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--内容End-->
+    <!--页尾Begin-->
+    <div id="footer">
+        <div class="footer_msg">
+            <dl>
+                <dt><a href="#">新手课堂</a></dt>
+                <dd><a href="#">新用户注册</a><a href="#">购买流程</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">支付方式</a></dt>
+                <dd><a href="#">在线支付</a><a href="#">银行汇款</a><a href="#">发票制度</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">配送方式</a></dt>
+                <dd><a href="#">配送运费</a><a href="#">配送范围</a><a href="#">配送流程</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">售货服务</a></dt>
+                <dd><a href="#">退换货政策</a><a href="#">退换货流程</a><a href="#">订单跟踪</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">帮助中心</a></dt>
+                <dd><a href="#">找回密码</a><a href="#">常见问题</a><a href="#">意见反馈</a></dd>
+            </dl>
+            <dl class="dihuas">
+                <dt>客服热线<br />400-001-0001</dt>
+                <dd><a href="#">在线客服咨询</a></dd>
+            </dl>
+        </div>
+        <p>©2007-2014 Mbaobao All Rights Reserved. 红缀集团 版权所有，禁止非法复制 经营许可证编号：经营许可证编号：京B2-20100425</p>
+    </div>
+    <!--页尾End-->
+    <div class="back_top">
+        <ul>
+            <li class="fhtop"><a href="#top">返回顶部</a></li>
+            <li class="zxzx"><a href="#">在线咨询</a></li>
+            <li class="shops"><a href="#">购物车</a></li>
+            <li class="gzwm"><a href="#">关注我们</a></li>
+        </ul>
+    </div>
+</body>
+</html>

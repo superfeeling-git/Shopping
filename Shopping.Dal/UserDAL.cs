@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Shopping.Model;
 using System.Linq.Dynamic;
 using System.Linq.Dynamic.Core;
+using EntityFramework.Extensions;
 
 namespace Shopping.Dal
 {
@@ -213,6 +214,17 @@ namespace Shopping.Dal
             user.UserName = userModel.UserName;
 
             return db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="userModel"></param>
+        /// <returns></returns>
+        public int ResetPassword(UserModel userModel)
+        {
+            ShoppingEntities db = new ShoppingEntities();
+            return db.User.Where(m => m.Email == userModel.Email).Update(m => new User { Password = userModel.Password });
         }
 
         public int Delete(int id)

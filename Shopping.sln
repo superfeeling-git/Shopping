@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Common", "Shopping
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{7D30B28F-C5D1-48E9-9EF5-7D6A9D7B4566}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.WinForm", "Shopping.WinForm\Shopping.WinForm.csproj", "{FCAB08CD-8198-4E81-BEAD-3C4D76EFEFB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{7D30B28F-C5D1-48E9-9EF5-7D6A9D7B4566}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D30B28F-C5D1-48E9-9EF5-7D6A9D7B4566}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D30B28F-C5D1-48E9-9EF5-7D6A9D7B4566}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCAB08CD-8198-4E81-BEAD-3C4D76EFEFB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCAB08CD-8198-4E81-BEAD-3C4D76EFEFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCAB08CD-8198-4E81-BEAD-3C4D76EFEFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCAB08CD-8198-4E81-BEAD-3C4D76EFEFB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

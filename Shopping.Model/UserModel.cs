@@ -61,6 +61,11 @@ namespace Shopping.Model
         /// 注册时间
         ///</Summary>
         public DateTime CreateTime { get; set; }
+
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        public string Email { get; set; }
         #endregion
     }
 }

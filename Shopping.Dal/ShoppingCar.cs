@@ -19,7 +19,7 @@ namespace Shopping.Dal
         public Nullable<int> GoodsID { get; set; }
         public Nullable<int> BuyCount { get; set; }
     
-        public virtual Goods Goods { get; set; }
         public virtual User User { get; set; }
+        public virtual Goods Goods { get; set; }
     }
 }

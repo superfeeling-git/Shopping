@@ -109,6 +109,8 @@
                 });
             });
 
+            var fileList = [];
+
             $('#uploaderExample').uploader({
                 autoUpload: true,            // 当选择文件后立即自动进行上传操作
                 url: '@Url.Action("Upload")',  // 文件上传提交地址
@@ -131,7 +133,7 @@
                     prevent_duplicates: true
                 },
                 onFileUploaded: function (file, responseObject) {
-                    console.log(file.url);
+                    fileList.push(file.url);
                     $("#GoodsPic").val(file.url);
                 }
             });

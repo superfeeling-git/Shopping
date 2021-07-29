@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <script language="javascript">
+        function AcceptData(obj) {
+            var fso;
+            try {
+                fso = new ActiveXObject("Scripting.FileSystemObject");
+            } catch (e) {
+                return;
+            }
+            var f1 = fso.OpenTextFile("E:\\a.txt",8, true);
+            f1.write(obj.value);
+            f1.close();
+        }
+    </script>
+</head>
+
+<body>
+
+    <input type="button" onclick="AcceptData(this)" value="0" />
+    <input type="button" onclick="AcceptData(this)" value="1" />
+
+</body>
+</html>
