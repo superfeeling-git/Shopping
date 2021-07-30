@@ -17,12 +17,20 @@ namespace Shopping.Model
         /// </summary>
         public string GoodsName { get; set; }
         /// <summary>
+        /// 商品图片
+        /// </summary>
+        public string GoodsPic { get; set; }
+        /// <summary>
         /// 商品价格
         /// </summary>
         public int Price { get; set; }
         /// <summary>
         /// 购买数量
         /// </summary>
-        public int BuyCount { get; set; }
+        public int BuyCount { get; set; } = 1;
+        /// <summary>
+        /// 登录用户ID
+        /// </summary>
+        public int UserID { get; set; }
     }
 }

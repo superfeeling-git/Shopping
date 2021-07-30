@@ -52,16 +52,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarBLL.cs" />
     <Compile Include="DictBLL.cs" />
     <Compile Include="GoodsBLL.cs" />
     <Compile Include="GoodsCategoryBLL.cs" />
     <Compile Include="IBaseBLL.cs" />
+    <Compile Include="ICar.cs" />
     <Compile Include="OutMaterialBLL.cs" />
     <Compile Include="PlaceBLL.cs" />
     <Compile Include="PriceBLL.cs" />
     <Compile Include="SessionCar.cs" />
     <Compile Include="UserBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shopping.Common\Shopping.Common.csproj">

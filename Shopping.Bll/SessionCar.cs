@@ -5,13 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Shopping.Model;
 using System.Web;
+using Shopping.Dal;
 using NLog;
 
 namespace Shopping.Bll
 {
-    public class SessionCar
+    public class SessionCar : ICar
     {
         private Logger log = LogManager.GetCurrentClassLogger();
+
+        private GoodsDAL goodsDAL = new GoodsDAL();
 
         /// <summary>
         /// 添加购物车
@@ -23,11 +26,11 @@ namespace Shopping.Bll
             //获取SESSION的商品列表
             var list = GetCar();
 
-            //判断有没有该商品，如果有数量+1；如果没有，该商品加入购物车
+            //判断有没有该商品，如果有数量；如果没有，该商品加入购物车
             var goods = list.FirstOrDefault(m => m.GoodsID == carModel.GoodsID);
-            if(goods != null)
+            if (goods != null)
             {
-                goods.BuyCount += 1;
+                goods.BuyCount += carModel.BuyCount;
             }
             else
             {
@@ -49,15 +52,20 @@ namespace Shopping.Bll
             //购物车商品数据
             var list = HttpContext.Current.Session["car"] as List<CarModel>;
 
-            if(list == null)
+            if (list == null)
             {
                 list = new List<CarModel>();
                 HttpContext.Current.Session["car"] = list;
-
-                DateTime dt = new DateTime(5, 12, 28, 29, 30, 31);
             }
 
             //联查数据库
+            foreach (var item in list)
+            {
+                var dbGoodsModel = goodsDAL.GetModel(item.GoodsID);
+                item.GoodsName = dbGoodsModel.GoodsName;
+                item.Price = (int)dbGoodsModel.Price;
+                item.GoodsPic = dbGoodsModel.GoodsPic.Split(',')[0];
+            }
 
             return list;
         }

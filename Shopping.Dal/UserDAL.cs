@@ -25,7 +25,8 @@ namespace Shopping.Dal
                 IsLock = userModel.IsLock,
                 LastLoginIP = userModel.LastLoginIP,
                 LastLoginTime = userModel.LastLoginTime,
-                Sex = userModel.Sex
+                Sex = userModel.Sex,
+                Email = userModel.Email
             });
             return db.SaveChanges();
         }
@@ -89,6 +90,8 @@ namespace Shopping.Dal
                 user.LastLoginIP = entity.LastLoginIP;
                 user.Birthday = entity.Birthday;
                 user.Password = entity.Password;
+                user.UserID = entity.UserID;
+                user.Email = entity.Email;
             }
 
             return user;

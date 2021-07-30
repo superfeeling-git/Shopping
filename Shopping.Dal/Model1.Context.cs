@@ -30,7 +30,6 @@ namespace Shopping.Dal
         public virtual DbSet<Dict> Dict { get; set; }
         public virtual DbSet<GoodsCategory> GoodsCategory { get; set; }
         public virtual DbSet<OrderGoods> OrderGoods { get; set; }
-        public virtual DbSet<ShoppingCar> ShoppingCar { get; set; }
         public virtual DbSet<ShoppingOrder> ShoppingOrder { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
@@ -39,6 +38,7 @@ namespace Shopping.Dal
         public virtual DbSet<OutMaterial> OutMaterial { get; set; }
         public virtual DbSet<Place> Place { get; set; }
         public virtual DbSet<Price> Price { get; set; }
+        public virtual DbSet<ShoppingCar> ShoppingCar { get; set; }
     
         public virtual ObjectResult<P_GoodsPage_Result> P_GoodsPage(Nullable<int> pageIndex, Nullable<int> pageSize, ObjectParameter totalCount, ObjectParameter pageCount)
         {

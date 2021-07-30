@@ -189,6 +189,7 @@
     <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
     <Compile Include="Areas\Admin\Controllers\GoodsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\CookiesTestController.cs" />
     <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2024,6 +2025,7 @@
     <Content Include="Views\CookiesTest\JsCookies.cshtml" />
     <Content Include="Views\Goods\Detail.cshtml" />
     <Content Include="Views\Goods\AddCarSuccess.cshtml" />
+    <Content Include="Views\Car\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

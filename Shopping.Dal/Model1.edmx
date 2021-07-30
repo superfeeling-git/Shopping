@@ -29,7 +29,7 @@
           <Property Name="IsHot" Type="bit" Nullable="false" />
           <Property Name="IsHome" Type="bit" Nullable="false" />
           <Property Name="Details" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="GoodsPic" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GoodsPic" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
           <Property Name="OutMaterialID" Type="int" Nullable="false" />
           <Property Name="PlaceID" Type="int" Nullable="false" />
@@ -83,9 +83,9 @@
             <PropertyRef Name="CarID" />
           </Key>
           <Property Name="CarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="int" />
-          <Property Name="GoodsID" Type="int" />
-          <Property Name="BuyCount" Type="int" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="GoodsID" Type="int" Nullable="false" />
+          <Property Name="BuyCount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ShoppingOrder">
           <Key>
@@ -180,7 +180,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ShoppingCar_REFERENCE_Goods">
-          <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+          <End Role="Goods" Type="Self.Goods" Multiplicity="1" />
           <End Role="ShoppingCar" Type="Self.ShoppingCar" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Goods">
@@ -192,7 +192,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ShoppingCar_REFERENCE_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="ShoppingCar" Type="Self.ShoppingCar" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -283,7 +283,6 @@
           <EntitySet Name="Dict" EntityType="ShoppingModel.Dict" />
           <EntitySet Name="GoodsCategory" EntityType="ShoppingModel.GoodsCategory" />
           <EntitySet Name="OrderGoods" EntityType="ShoppingModel.OrderGoods" />
-          <EntitySet Name="ShoppingCar" EntityType="ShoppingModel.ShoppingCar" />
           <EntitySet Name="ShoppingOrder" EntityType="ShoppingModel.ShoppingOrder" />
           <EntitySet Name="sysdiagrams" EntityType="ShoppingModel.sysdiagrams" />
           <EntitySet Name="User" EntityType="ShoppingModel.User" />
@@ -291,10 +290,6 @@
           <AssociationSet Name="FK_OrderGoods_REFERENCE_ShoppingOrder" Association="ShoppingModel.FK_OrderGoods_REFERENCE_ShoppingOrder">
             <End Role="ShoppingOrder" EntitySet="ShoppingOrder" />
             <End Role="OrderGoods" EntitySet="OrderGoods" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCar_REFERENCE_User" Association="ShoppingModel.FK_ShoppingCar_REFERENCE_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="ShoppingCar" EntitySet="ShoppingCar" />
           </AssociationSet>
           <AssociationSet Name="FK_ShoppingOrder_REFERENCE_User" Association="ShoppingModel.FK_ShoppingOrder_REFERENCE_User">
             <End Role="User" EntitySet="User" />
@@ -316,16 +311,21 @@
             <End Role="Goods" EntitySet="Goods" />
             <End Role="OrderGoods" EntitySet="OrderGoods" />
           </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCar_REFERENCE_Goods" Association="ShoppingModel.FK_ShoppingCar_REFERENCE_Goods">
-            <End Role="Goods" EntitySet="Goods" />
-            <End Role="ShoppingCar" EntitySet="ShoppingCar" />
-          </AssociationSet>
           <FunctionImport Name="P_GoodsPage" ReturnType="Collection(ShoppingModel.P_GoodsPage_Result)">
             <Parameter Name="PageIndex" Mode="In" Type="Int32" />
             <Parameter Name="PageSize" Mode="In" Type="Int32" />
             <Parameter Name="TotalCount" Mode="InOut" Type="Int32" />
             <Parameter Name="PageCount" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="ShoppingCar" EntityType="ShoppingModel.ShoppingCar" />
+          <AssociationSet Name="FK_ShoppingCar_REFERENCE_Goods" Association="ShoppingModel.FK_ShoppingCar_REFERENCE_Goods">
+            <End Role="Goods" EntitySet="Goods" />
+            <End Role="ShoppingCar" EntitySet="ShoppingCar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCar_REFERENCE_User" Association="ShoppingModel.FK_ShoppingCar_REFERENCE_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ShoppingCar" EntitySet="ShoppingCar" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Dict">
           <Key>
@@ -356,17 +356,6 @@
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="ShoppingOrder" Relationship="ShoppingModel.FK_OrderGoods_REFERENCE_ShoppingOrder" FromRole="OrderGoods" ToRole="ShoppingOrder" />
           <NavigationProperty Name="Goods" Relationship="ShoppingModel.FK_OrderGoods_REFERENCE_Goods" FromRole="OrderGoods" ToRole="Goods" />
-        </EntityType>
-        <EntityType Name="ShoppingCar">
-          <Key>
-            <PropertyRef Name="CarID" />
-          </Key>
-          <Property Name="CarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="GoodsID" Type="Int32" />
-          <Property Name="BuyCount" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="ShoppingModel.FK_ShoppingCar_REFERENCE_User" FromRole="ShoppingCar" ToRole="User" />
-          <NavigationProperty Name="Goods" Relationship="ShoppingModel.FK_ShoppingCar_REFERENCE_Goods" FromRole="ShoppingCar" ToRole="Goods" />
         </EntityType>
         <EntityType Name="ShoppingOrder">
           <Key>
@@ -412,9 +401,9 @@
           <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
           <Property Name="LastLoginIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="ShoppingCar" Relationship="ShoppingModel.FK_ShoppingCar_REFERENCE_User" FromRole="User" ToRole="ShoppingCar" />
           <NavigationProperty Name="ShoppingOrder" Relationship="ShoppingModel.FK_ShoppingOrder_REFERENCE_User" FromRole="User" ToRole="ShoppingOrder" />
           <NavigationProperty Name="UserAddress" Relationship="ShoppingModel.FK_UserAddress_REFERENCE_User" FromRole="User" ToRole="UserAddress" />
+          <NavigationProperty Name="ShoppingCar" Relationship="ShoppingModel.FK_ShoppingCar_REFERENCE_User" FromRole="User" ToRole="ShoppingCar" />
         </EntityType>
         <EntityType Name="UserAddress">
           <Key>
@@ -439,18 +428,6 @@
             </Principal>
             <Dependent Role="OrderGoods">
               <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCar_REFERENCE_User">
-          <End Type="ShoppingModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="ShoppingModel.ShoppingCar" Role="ShoppingCar" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="ShoppingCar">
-              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -493,7 +470,7 @@
           <Property Name="IsHot" Type="Boolean" Nullable="false" />
           <Property Name="IsHome" Type="Boolean" Nullable="false" />
           <Property Name="Details" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="GoodsPic" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GoodsPic" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OutMaterialID" Type="Int32" Nullable="false" />
           <Property Name="PlaceID" Type="Int32" Nullable="false" />
@@ -551,18 +528,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ShoppingCar_REFERENCE_Goods">
-          <End Type="ShoppingModel.Goods" Role="Goods" Multiplicity="0..1" />
-          <End Type="ShoppingModel.ShoppingCar" Role="ShoppingCar" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Goods">
-              <PropertyRef Name="GoodsID" />
-            </Principal>
-            <Dependent Role="ShoppingCar">
-              <PropertyRef Name="GoodsID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="P_GoodsPage_Result">
           <Property Type="Int32" Name="GoodsID" Nullable="false" />
           <Property Type="Int32" Name="CategoryID" Nullable="false" />
@@ -582,6 +547,41 @@
           <Property Type="Int32" Name="RangeID" Nullable="false" />
           <Property Type="Int32" Name="SaleNum" Nullable="true" />
         </ComplexType>
+        <EntityType Name="ShoppingCar">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="GoodsID" Type="Int32" Nullable="false" />
+          <Property Name="BuyCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Goods" Relationship="ShoppingModel.FK_ShoppingCar_REFERENCE_Goods" FromRole="ShoppingCar" ToRole="Goods" />
+          <NavigationProperty Name="User" Relationship="ShoppingModel.FK_ShoppingCar_REFERENCE_User" FromRole="ShoppingCar" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_ShoppingCar_REFERENCE_Goods">
+          <End Type="ShoppingModel.Goods" Role="Goods" Multiplicity="1" />
+          <End Type="ShoppingModel.ShoppingCar" Role="ShoppingCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goods">
+              <PropertyRef Name="GoodsID" />
+            </Principal>
+            <Dependent Role="ShoppingCar">
+              <PropertyRef Name="GoodsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCar_REFERENCE_User">
+          <End Type="ShoppingModel.User" Role="User" Multiplicity="1" />
+          <End Type="ShoppingModel.ShoppingCar" Role="ShoppingCar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ShoppingCar">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -615,16 +615,6 @@
                 <ScalarProperty Name="GoodsID" ColumnName="GoodsID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ShoppingCar">
-            <EntityTypeMapping TypeName="ShoppingModel.ShoppingCar">
-              <MappingFragment StoreEntitySet="ShoppingCar">
-                <ScalarProperty Name="BuyCount" ColumnName="BuyCount" />
-                <ScalarProperty Name="GoodsID" ColumnName="GoodsID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="CarID" ColumnName="CarID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -761,6 +751,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="ShoppingCar">
+            <EntityTypeMapping TypeName="ShoppingModel.ShoppingCar">
+              <MappingFragment StoreEntitySet="ShoppingCar">
+                <ScalarProperty Name="BuyCount" ColumnName="BuyCount" />
+                <ScalarProperty Name="GoodsID" ColumnName="GoodsID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -16,7 +16,7 @@ namespace Shopping.UI.Controllers
         PlaceBLL placeBLL = new PlaceBLL();
         PriceBLL priceBLL = new PriceBLL();
         OutMaterialBLL outMaterialBLL = new OutMaterialBLL();
-        SessionCar car = new SessionCar();
+        CarBLL car = new CarBLL();
 
         [HttpGet]
         public ActionResult Index(GoodsQueryModel goodsQuery, string Field = "GoodsID", string OrderBy = "DESC", int pageSize = 10, int PageIndex = 1)

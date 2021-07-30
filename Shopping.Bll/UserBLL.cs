@@ -46,6 +46,7 @@ namespace Shopping.Bll
         /// <returns></returns>
         public int Create(UserModel userModel)
         {
+            userModel.Email = "feeling@feeling.com";
             userModel.Password = userModel.Password.GetMD5();
             userModel.IsLock = false;
             userModel.LastLoginIP = null;
@@ -108,7 +109,7 @@ namespace Shopping.Bll
                 {
                     if(loginModel.Password.GetMD5() == user.Password)
                     {
-                        FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.UserName, DateTime.Now, DateTime.Now.AddMinutes(20), true, "userData");
+                        FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.UserName, DateTime.Now, DateTime.Now.AddMinutes(20), true, $"{user.UserID},{user.CreateTime},{user.Email}");
 
                         string ticketCode = FormsAuthentication.Encrypt(ticket);
 
@@ -146,6 +147,8 @@ namespace Shopping.Bll
             {
                 if (registerModel.Password.GetMD5() == user.Password)
                 {
+                    
+
                     HttpContext.Current.Session["user"] = user;
 
                     return new ResultModel { ErrorCode = 0, Info = "登录成功" };

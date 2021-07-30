@@ -35,10 +35,9 @@
                     url: "/Goods/AddCar",
                     type: "post",
                     dataType: "json",
-                    data: { BuyCount: BuyCount, GoodsID:id},
-                    success: function (d) {
-                        console.log(d);
-                        showtip('/Goods/AddCarSuccess', '', 450, 200, '30%')
+                    data: { BuyCount: BuyCount, GoodsID: id, Price:@((int)Model.Price)},
+                    success: function (d) {                        
+                        showtip(`/Goods/AddCarSuccess?totalCount=${d.GoodsCount}&totalPrice=${d.TotalPrice}`, '', 450, 200, '30%')
                     }
                 })
             })
@@ -151,8 +150,8 @@
                 <dl class="jiages gmsl">
                     <dt>购买数量</dt>
                     <dd>
-                        <input name="" id="content1_2text" type="text" value="1" />
-                        <input name="" type="button" id="content1_2but1" class="BuyCount" /><br />
+                        <input name="" id="content1_2text" type="text" value="1" class="BuyCount"/>
+                        <input name="" type="button" id="content1_2but1"  /><br />
                         <input name="" type="button" id="content1_2but2" />
                     </dd>
                 </dl>

@@ -1,16 +1,21 @@
-﻿<div id="header">
+﻿@using Shopping.Bll;
+<div id="header">
     <div class="loginbar">
         <div class="loginbar_child">
             <ul class="fanhui">
                 <li class="rtn_home"><a href="/">返回首页</a></li>
-                @if (Session["user"] == null)
+                @if (!UserContext.IsLogin)
                 {
                     <li><a href="/User/Login">[登录]</a></li>
                     <li><a href="/User/Register">[免费注册]</a></li>
                 }
                 else
                 {
-                    <li>用户名：xiaojie</li>
+                    UserModel user = UserContext.GetUser;
+
+                    <li>ID：@user.UserID</li>
+                    <li>用户名：@user.UserName</li>
+                    <li>Email：@user.Email</li>
                     <li><a href="@Url.Action("Logout","User")">注销</a></li>
                 }
             </ul>

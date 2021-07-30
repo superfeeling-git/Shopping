@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDAL.cs" />
+    <Compile Include="CarDAL.cs" />
     <Compile Include="Dict.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

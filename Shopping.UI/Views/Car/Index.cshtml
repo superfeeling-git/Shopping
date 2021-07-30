@@ -1,0 +1,252 @@
+﻿@model IEnumerable<CarModel>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>红缀集团</title>
+    <link type="text/css" rel="stylesheet" href="/styles/layout.css" />
+    <script type="text/javascript" src="/scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/scripts/connom.js"></script>
+    <script>
+        $(function () {
+            //计算总价
+            var ComputeProice = function () {
+                let totalPrice = 0;
+                //计算总价
+                $(".subPrice").each(function (i, e) {
+                    var currPrice = parseInt($(e).text().replace("¥", ""));
+
+                    totalPrice += currPrice;
+                });
+
+                $("#total").text(totalPrice);
+
+                $("#goodsCount").text($("#tab tbody tr").length);
+            }
+
+
+            //增减商品数量
+            $(".changeCount").click(function () {
+                //当前商品的ID
+                var goodsid = $(this).data("id");
+
+                var count = parseInt($(`#${goodsid}`).val());
+
+                if (count <= 1 && $(this).hasClass("texta")) {
+                    alert("最小数量1件");
+                    return;
+                }
+
+                //+、-
+                $(this).hasClass("texta") ? count-- : count++;
+
+                //重新赋值
+                $(`#${goodsid}`).val(count);
+
+                //得到价格
+                var price = parseInt($(this).data("price"));
+
+                //计算小计
+                $(this).parents("td").next().find("span").text(`¥${price * count}`);
+
+                ComputeProice();
+
+
+                $.ajax({
+                    url: "/Car/Update",
+                    type: "post",
+                    dataType: "json",
+                    data: { GoodsID: goodsid, BuyCount: count},
+                    success: function (d) {
+
+                    }
+                })
+            })
+
+            //删除单品
+            $(".del").click(function () {
+                $(this).parents("tr").remove();
+                ComputeProice();
+
+                $.ajax({
+                    url: "/Car/Del",
+                    type: "get",
+                    dataType: "json",
+                    data: { id: $(this).prop("id") },
+                    success: function (d) {
+
+                    }
+                })
+            })
+
+            //全选
+            $(".selectAll").click(function () {
+                $("input[name=GoodsID]").prop("checked", true);
+            })
+
+            //反选
+            $(".Rersver").click(function () {
+                $("input[name=GoodsID]").each(function () {
+                    var val = !$(this).prop("checked");
+                    $(this).prop("checked", val);
+                })
+            })
+
+            //删除选中商品
+            $("#delSelected").click(function () {
+                var idList = [];
+
+                $("input[name=GoodsID]:checked").each(function () {
+                    idList.push($(this).val());
+                    $(this).parents("tr").remove();                    
+                });
+
+                ComputeProice();
+
+
+                $.ajax({
+                    url: "/Car/BulkDel",
+                    type: "post",
+                    dataType: "json",
+                    data:
+                    {
+                        idList: idList
+                    },
+                    success: function (d) {
+
+                    }
+                })
+            })
+
+            //清空购物车
+            $("#clear").click(function () {
+                debugger;
+                $("#tab tbody").empty();
+                ComputeProice();
+            })
+        })
+    </script>
+</head>
+
+<body name="top">
+    <!--页头Begin-->
+    @Html.Action("Top", "Shared")
+    <!--页头End-->
+    <!--内容Begin-->
+    <div id="container">
+        <div class="cplist">
+            <div class="shoppings">
+                <div class="jiesuan">
+                    <div class="cplist">
+                        <h2 class="cart_bz"><img src="/images/bg23_a.gif" width="1000" height="62" /></h2>
+                        <div class="shoppings">
+                            <table border="0" cellspacing="0" cellpadding="0" class="gw_cartes" id="tab">
+                                <thead>
+                                    <tr>
+                                        <th width="70" height="35" align="center" bgcolor="#f2f2f2">
+                                            <a href="javascript:;" class="selectAll">全选</a>
+                                            <a href="javascript:;" class="Rersver">反选</a>
+                                            <label for="checkbox"></label>
+                                        </th>
+                                        <th width="379" align="center" bgcolor="#f2f2f2">商品信息</th>
+                                        <th width="164" align="center" bgcolor="#f2f2f2">单价</th>
+                                        <th width="140" align="center" bgcolor="#f2f2f2">数量</th>
+                                        <th width="133" align="center" bgcolor="#f2f2f2">小计</th>
+                                        <th width="128" align="center" bgcolor="#f2f2f2">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td align="center" valign="middle"><input type="checkbox" name="GoodsID" value="@item.GoodsID" /></td>
+                                            <td align="left" valign="top">
+                                                <dl>
+                                                    <dt><a href="#"><img src="@item.GoodsPic" /></a></dt>
+                                                    <dd>
+                                                        <p>
+                                                            <a href="#">
+                                                                @item.GoodsName
+                                                            </a>
+                                                        </p>
+                                                    </dd>
+                                                </dl>
+                                            </td>
+                                            <td align="center" valign="middle"><span class="price">¥@item.Price</span></td>
+                                            <td align="center" valign="middle">
+                                                <div class="shuliang">
+                                                    <input name="input" type="button" data-price="@item.Price" data-id="@item.GoodsID" class="texta changeCount" />
+                                                    <input name="input" type="text" id="@item.GoodsID" class="textb" value="@item.BuyCount" />
+                                                    <input name="input" type="button" data-price="@item.Price" data-id="@item.GoodsID" class="textc changeCount" />
+                                                </div>
+                                            </td>
+                                            <td align="center" valign="middle"><span class="subPrice">¥@(item.Price * item.BuyCount)</span></td>
+                                            <td align="center" valign="middle"><a href="javascript:;" class="del" id="@item.GoodsID">删除</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="jiesuans">
+                                <div class="jiesuans_lt">
+                                    <a href="javascript:;" id="clear" class="laji">清空购物车</a><a href="javascript:;" id="delSelected">删除选中商品</a>
+                                </div>
+                                <div class="jiesuans_rt"><span><i id="goodsCount">@Model.Count()</i>件商品</span><span>总计：<b>¥</b>
+                                    <b id="total">
+                                     @Model.Sum(m => m.BuyCount * m.Price)
+                                     </b></span></div>
+                            </div>
+                            <div class="qvjsuans">
+                                <a href="product_list.html">&lt;&lt;返回继续购物</a>
+                                <a href="my_cart_b.html" style="width:135px; height:36px; line-height:36px; color:#fff; font-size:18px;
+font-weight:bold; background:#db0e0e; float:right; display:block;">
+                                    去结算
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--内容End-->
+    <!--页尾Begin-->
+    <div id="footer">
+        <div class="footer_msg">
+            <dl>
+                <dt><a href="#">新手课堂</a></dt>
+                <dd><a href="#">新用户注册</a><a href="#">购买流程</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">支付方式</a></dt>
+                <dd><a href="#">在线支付</a><a href="#">银行汇款</a><a href="#">发票制度</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">配送方式</a></dt>
+                <dd><a href="#">配送运费</a><a href="#">配送范围</a><a href="#">配送流程</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">售货服务</a></dt>
+                <dd><a href="#">退换货政策</a><a href="#">退换货流程</a><a href="#">订单跟踪</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="#">帮助中心</a></dt>
+                <dd><a href="#">找回密码</a><a href="#">常见问题</a><a href="#">意见反馈</a></dd>
+            </dl>
+            <dl class="dihuas">
+                <dt>客服热线<br />400-001-0001</dt>
+                <dd><a href="#">在线客服咨询</a></dd>
+            </dl>
+        </div>
+        <p>©2007-2014 Mbaobao All Rights Reserved. 红缀集团 版权所有，禁止非法复制 经营许可证编号：经营许可证编号：京B2-20100425</p>
+    </div>
+    <!--页尾End-->
+    <div class="back_top">
+        <ul>
+            <li class="fhtop"><a href="#top">返回顶部</a></li>
+            <li class="zxzx"><a href="#">在线咨询</a></li>
+            <li class="shops"><a href="#">购物车</a></li>
+            <li class="gzwm"><a href="#">关注我们</a></li>
+        </ul>
+    </div>
+</body>
+</html>
