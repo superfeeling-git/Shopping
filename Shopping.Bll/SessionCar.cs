@@ -7,6 +7,7 @@ using Shopping.Model;
 using System.Web;
 using Shopping.Dal;
 using NLog;
+using Newtonsoft.Json;
 
 namespace Shopping.Bll
 {
@@ -37,8 +38,14 @@ namespace Shopping.Bll
                 list.Add(carModel);
             }
 
+            string str_list = JsonConvert.SerializeObject(list);
+
             //存回SESSION
-            HttpContext.Current.Session["car"] = list;
+            HttpCookie cookie = HttpContext.Current.Request.Cookies["car"];
+
+            cookie.Value = str_list;
+
+            HttpContext.Current.Response.Cookies.Add(cookie);
 
             return list;
         }
@@ -50,16 +57,26 @@ namespace Shopping.Bll
         public List<CarModel> GetCar()
         {
             //购物车商品数据
-            var list = HttpContext.Current.Session["car"] as List<CarModel>;
+            HttpCookie cookie = HttpContext.Current.Request.Cookies["car"];
 
-            if (list == null)
+            //空的处理
+            if (cookie == null)
             {
-                list = new List<CarModel>();
-                HttpContext.Current.Session["car"] = list;
+                List<CarModel> list = new List<CarModel>();
+                string str = JsonConvert.SerializeObject(list);
+
+                //新建一个Cookies对象
+                cookie = new HttpCookie("car");
+                cookie.Value = str;//[]
+                HttpContext.Current.Response.Cookies.Add(cookie);
+
+                return list;
             }
 
+            List<CarModel> carlist = JsonConvert.DeserializeObject<List<CarModel>>(cookie.Value);
+
             //联查数据库
-            foreach (var item in list)
+            foreach (var item in carlist)
             {
                 var dbGoodsModel = goodsDAL.GetModel(item.GoodsID);
                 item.GoodsName = dbGoodsModel.GoodsName;
@@ -67,7 +84,7 @@ namespace Shopping.Bll
                 item.GoodsPic = dbGoodsModel.GoodsPic.Split(',')[0];
             }
 
-            return list;
+            return carlist;
         }
 
         /// <summary>
@@ -85,8 +102,19 @@ namespace Shopping.Bll
             //删除商品
             list.Remove(goods);
 
+            string str_list = JsonConvert.SerializeObject(list);
+
+            //存回SESSION
+            HttpCookie cookie = HttpContext.Current.Request.Cookies["car"];
+
+            //给Cookies重新赋值 
+            cookie.Value = str_list;
+
+            //重新保存
+            HttpContext.Current.Response.Cookies.Add(cookie);
+
             //重新保存商品信息到SESSION
-            HttpContext.Current.Session["car"] = list;
+            //HttpContext.Current.Session["car"] = list;
 
             return list;
         }
@@ -149,8 +177,17 @@ namespace Shopping.Bll
             //更新
             goods.BuyCount = carModel.BuyCount;
 
+            //存回SESSION
+            HttpCookie cookie = HttpContext.Current.Request.Cookies["car"];
+
+            string str_list = JsonConvert.SerializeObject(list);
+
+            cookie.Value = str_list;
+
+            HttpContext.Current.Response.Cookies.Add(cookie);
+
             //重新保存商品信息到SESSION
-            HttpContext.Current.Session["car"] = list;
+            //HttpContext.Current.Session["car"] = list;
 
             return list;
         }

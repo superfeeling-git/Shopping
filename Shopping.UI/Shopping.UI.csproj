@@ -61,6 +61,12 @@
       <HintPath>..\packages\elkdanger.jigsaw.1.0.0.0\lib\net452\Jigsaw.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.12.0.0.0.Fakes">
+      <HintPath>FakesAssemblies\Newtonsoft.Json.12.0.0.0.Fakes.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.7.10\lib\net45\NLog.dll</HintPath>
     </Reference>
@@ -1972,6 +1978,7 @@
     <Content Include="jigsaw\package.json" />
     <Content Include="jigsaw\README.md" />
     <Content Include="NLog.config" />
+    <Fakes Include="Fakes\Newtonsoft.Json.fakes" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2026,6 +2033,8 @@
     <Content Include="Views\Goods\Detail.cshtml" />
     <Content Include="Views\Goods\AddCarSuccess.cshtml" />
     <Content Include="Views\Car\Index.cshtml" />
+    <Content Include="Views\Car\Collapse.cshtml" />
+    <Content Include="Views\Car\Media.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

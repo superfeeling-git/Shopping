@@ -22,6 +22,7 @@ using Shopping.Common;
 using Spire;
 using Spire.Xls;
 using System.Drawing;
+using System.Collections.Specialized;
 
 namespace ConsoleApp1
 {
@@ -29,7 +30,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-
+            NameValueCollection a = ConfigurationManager.AppSettings;
 
             SqlParameter parm = new SqlParameter("@ID", DBNull.Value);
 

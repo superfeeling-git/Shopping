@@ -46,5 +46,26 @@ namespace Shopping.UI.Controllers
         {
             return Json(Car.BulkDelCar(idList), JsonRequestBehavior.AllowGet);
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Collapse()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Media()
+        {
+            return View();
+        }
     }
 }
