@@ -58,6 +58,7 @@
     <Compile Include="GoodsModel.cs" />
     <Compile Include="GoodsQueryModel.cs" />
     <Compile Include="LoginModel.cs" />
+    <Compile Include="OrderGoodsModel.cs" />
     <Compile Include="OutMaterialModel.cs" />
     <Compile Include="PageModel.cs" />
     <Compile Include="PartialModel.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="RegisterModel.cs" />
     <Compile Include="ResetPasswordModel.cs" />
     <Compile Include="ResultModel.cs" />
+    <Compile Include="ShoppingOrderModel.cs" />
+    <Compile Include="UserAddressModel.cs" />
     <Compile Include="UserModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -272,5 +272,43 @@ namespace Shopping.Dal
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// 根据用户ID返回地址
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        public List<UserAddressModel> GetAddress(int UserID)
+        {
+            ShoppingEntities db = new ShoppingEntities();
+            return db.UserAddress.Where(m => m.UserID == UserID).MapToList<UserAddress, UserAddressModel>();
+        }
+
+        /// <summary>
+        /// 保存收货地址
+        /// </summary>
+        /// <param name="userAddressModel"></param>
+        /// <returns></returns>
+        public int SaveAddress(UserAddressModel userAddressModel)
+        {
+            ShoppingEntities db = new ShoppingEntities();
+
+            var addressModel = userAddressModel.MapTo<UserAddress>();
+            db.UserAddress.Add(addressModel);
+            db.SaveChanges();
+
+            return addressModel.AddressID;
+        }
+
+        /// <summary>
+        /// 根据地址ID查询地址信息
+        /// </summary>
+        /// <param name="AddressID"></param>
+        /// <returns></returns>
+        public UserAddressModel GetAddressByAddressID(int AddressID)
+        {
+            ShoppingEntities db = new ShoppingEntities();
+            return db.UserAddress.Find(AddressID).MapTo<UserAddressModel>();
+        }
     }
 }

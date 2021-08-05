@@ -17,9 +17,9 @@ namespace Shopping.Dal
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.ShoppingCar = new HashSet<ShoppingCar>();
             this.ShoppingOrder = new HashSet<ShoppingOrder>();
             this.UserAddress = new HashSet<UserAddress>();
-            this.ShoppingCar = new HashSet<ShoppingCar>();
         }
     
         public int UserID { get; set; }
@@ -36,10 +36,10 @@ namespace Shopping.Dal
         public System.DateTime CreateTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShoppingCar> ShoppingCar { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShoppingOrder> ShoppingOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserAddress> UserAddress { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShoppingCar> ShoppingCar { get; set; }
     }
 }

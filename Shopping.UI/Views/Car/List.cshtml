@@ -1,0 +1,66 @@
+﻿@model List<GoodsCategoryModel> 
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <style type="text/css">
+        .thumbnail > img {
+            width: 350px;
+            height: 230px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <li role="presentation" @Html.Raw(i == 0 ? "class=\"active\"" : "")><a href="#@Model[i].CategoryID" aria-controls="@Model[i].CategoryID" role="tab" data-toggle="tab">@Model[i].CategoryName</a></li>
+                        }
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        @{ 
+                            var l = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <div role="tabpanel" class="tab-pane @Html.Raw(l == 0 ? "active" : "")" id="@item.CategoryID">
+                                <div class="row">
+                                    @foreach (var goods in item.GoodsModel)
+                                    {
+                                        <div class="col-sm-6 col-md-4">
+                                            <div class="thumbnail">
+                                                <img src="@goods.GoodsPic" />
+                                                <div class="caption">
+                                                    <h3>@goods.GoodsName</h3>
+                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            l++;
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

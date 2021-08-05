@@ -151,6 +151,52 @@ namespace Shopping.Bll
 
                     HttpContext.Current.Session["user"] = user;
 
+                    #region 合并购物车
+                    //购物车合并
+                    //A：购物车--商品                    
+                    SessionCar car = new SessionCar();
+                    List<CarModel> carList = car.GetCar();
+
+                    //B：数据库--商品
+                    CarDAL carDAL = new CarDAL();
+                    List<CarModel> dbCarList = carDAL.GetCar(user.UserID);
+
+                    //求并集运算
+                    var idList = carList.Select(m => m.GoodsID).Union(dbCarList.Select(m => m.GoodsID));
+
+                    List<CarModel> newList = new List<CarModel>();
+
+                    foreach (var item in idList)
+                    {
+                        var totalCount = 0;
+
+                        var carCount = carList.FirstOrDefault(m => m.GoodsID == item);
+                        if (carCount != null)
+                            totalCount += carCount.BuyCount;
+
+                        var dbCount = dbCarList.FirstOrDefault(m => m.GoodsID == item);
+                        if (dbCount != null)
+                            totalCount += dbCount.BuyCount;
+
+
+                        newList.Add(
+                            new CarModel 
+                            {
+                                GoodsID = item,
+                                BuyCount = totalCount,
+                                UserID = user.UserID
+                            });
+                    }
+
+                    //清空数据库购物车
+                    carDAL.ClearCar(user.UserID);
+                    car.ClearCar();
+
+                    //批量插入
+                    carDAL.BulkAddCar(newList);
+
+                    #endregion
+
                     return new ResultModel { ErrorCode = 0, Info = "登录成功" };
                 }
                 else
@@ -227,6 +273,27 @@ namespace Shopping.Bll
         {
             userModel.Password = userModel.Password.GetMD5();
             return userDAL.ResetPassword(userModel);
+        }
+
+        /// <summary>
+        /// 根据用户ID返回地址
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        public List<UserAddressModel> GetAddress(int UserID)
+        {
+            return userDAL.GetAddress(UserID);
+        }
+
+        /// <summary>
+        /// 保存收货地址
+        /// </summary>
+        /// <param name="userAddressModel"></param>
+        /// <returns></returns>
+        public int SaveAddress(UserAddressModel userAddressModel)
+        {
+            userAddressModel.UserID = UserContext.GetUser.UserID;
+            return userDAL.SaveAddress(userAddressModel);
         }
     }
 }

@@ -29,6 +29,10 @@ namespace Shopping.Model
         /// 节点路径
         ///</Summary>
         public string ParentPath { get; set; }
+        /// <summary>
+        /// 多个商品
+        /// </summary>
+        public List<GoodsModel> GoodsModel { get; set; }
         #endregion
     }
 }

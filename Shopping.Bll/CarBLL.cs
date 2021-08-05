@@ -133,6 +133,16 @@ namespace Shopping.Bll
         }
 
         /// <summary>
+        /// 根据商品ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public List<CarModel> GetCars(int[] id)
+        {
+            return GetCar().Where(m=>id.Contains(m.GoodsID)).ToList();
+        }
+
+        /// <summary>
         /// 清空购物车
         /// </summary>
         /// <returns></returns>

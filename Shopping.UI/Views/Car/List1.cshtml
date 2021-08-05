@@ -1,110 +1,101 @@
 ﻿
-@{
-    Layout = null;
-}
+
 
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Media</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
+    <title>List</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <script src="/Scripts/jquery-3.4.1.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <style type="text/css">
+        .thumbnail > img {
+            width: 350px;
+            height: 230px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div>
-
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-                        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-                        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+                        <li role="presentation" class="active"><a href="#1" aria-controls="1" role="tab" data-toggle="tab">家电</a></li>
+                        <li role="presentation"><a href="#2" aria-controls="2" role="tab" data-toggle="tab">家居</a></li>
                     </ul>
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="home">
+                        <div role="tabpanel" class="tab-pane active" id="1">
                             <div class="row">
                                 <div class="col-sm-6 col-md-4">
                                     <div class="thumbnail">
-                                        <img src="~/images/img/02640.jpg" style="width:350px; height:230px;" />
+                                        <img src="/images/img/02640.jpg" />
                                         <div class="caption">
-                                            <h3>Thumbnail label</h3>
-                                            <p>...</p>
+                                            <h3>电视机</h3>
                                             <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-4">
                                     <div class="thumbnail">
-                                        <img src="~/images/img/02657.jpg" style="width:350px; height:230px;"  />
+                                        <img src="/images/img/02657.jpg" />
                                         <div class="caption">
-                                            <h3>Thumbnail label</h3>
-                                            <p>...</p>
+                                            <h3>冰箱</h3>
                                             <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-4">
                                     <div class="thumbnail">
-                                        <img src="~/images/img/02674.jpg" style="width:350px; height:230px;"  />
+                                        <img src="/images/img/02674.jpg" />
                                         <div class="caption">
-                                            <h3>Thumbnail label</h3>
-                                            <p>...</p>
+                                            <h3>洗衣机</h3>
                                             <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="profile">
+                        <div role="tabpanel" class="tab-pane" id="2">
                             <div class="row">
                                 <div class="col-sm-6 col-md-4">
                                     <div class="thumbnail">
-                                        <img src="~/images/image/01.jpg"  style="width:350px; height:230px;" />
+                                        <img src="/images/image/01.jpg" />
                                         <div class="caption">
-                                            <h3>Thumbnail label</h3>
-                                            <p>...</p>
+                                            <h3>床垫</h3>
                                             <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-4">
                                     <div class="thumbnail">
-                                        <img src="~/images/image/02.jpg" style="width:350px; height:230px;" />
+                                        <img src="/images/image/02.jpg" />
                                         <div class="caption">
-                                            <h3>Thumbnail label</h3>
-                                            <p>...</p>
+                                            <h3>电视柜</h3>
                                             <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-4">
                                     <div class="thumbnail">
-                                        <img src="~/images/image/03.jpg" style="width:350px; height:230px;" />
+                                        <img src="/images/image/03.jpg" />
                                         <div class="caption">
-                                            <h3>Thumbnail label</h3>
-                                            <p>...</p>
+                                            <h3>沙发</h3>
                                             <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="messages">asadf</div>
-                        <div role="tabpanel" class="tab-pane" id="settings">79678</div>
                     </div>
-
                 </div>
             </div>
         </div>
-        
     </div>
 </body>
 </html>

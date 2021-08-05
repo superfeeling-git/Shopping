@@ -145,6 +145,7 @@ namespace Shopping.Bll
         {
             try
             {
+                /*
                 var list = GetCar();
 
                 //移除全部元素
@@ -152,6 +153,13 @@ namespace Shopping.Bll
 
                 //重新保存商品信息到SESSION
                 HttpContext.Current.Session["car"] = list;
+                */
+
+                HttpCookie cookie = HttpContext.Current.Request.Cookies["car"];
+
+                cookie.Expires = DateTime.Now.AddDays(-1);
+
+                HttpContext.Current.Response.Cookies.Add(cookie);
 
                 return true;
             }

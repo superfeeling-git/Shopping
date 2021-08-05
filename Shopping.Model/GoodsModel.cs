@@ -60,6 +60,7 @@ namespace Shopping.Model
         public bool IsNew { get; set; }
         public bool IsHot { get; set; }
         public bool IsHome { get; set; }
+        public GoodsCategoryModel GoodsCategoryModel { get; set; }
 
         #endregion
     }

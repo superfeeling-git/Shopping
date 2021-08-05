@@ -98,7 +98,7 @@
 
                 $("input[name=GoodsID]:checked").each(function () {
                     idList.push($(this).val());
-                    $(this).parents("tr").remove();                    
+                    $(this).parents("tr").remove();
                 });
 
                 ComputeProice();
@@ -123,6 +123,17 @@
                 debugger;
                 $("#tab tbody").empty();
                 ComputeProice();
+            })
+
+            //结算
+            $("#checkout").click(function () {
+
+                var idList = [];
+                $("input[name=GoodsID]:checked").each(function () {
+                    idList.push($(this).val());
+                });
+
+                window.location.href = `/Order/Index?idlist=${idList.toString()}`;
             })
         })
     </script>
@@ -166,7 +177,7 @@
                                                     <dd>
                                                         <p>
                                                             <a href="#">
-                                                                @item.GoodsName
+                                                                @($"{item.GoodsName}({item.GoodsID})")
                                                             </a>
                                                         </p>
                                                     </dd>
@@ -197,8 +208,8 @@
                             </div>
                             <div class="qvjsuans">
                                 <a href="product_list.html">&lt;&lt;返回继续购物</a>
-                                <a href="my_cart_b.html" style="width:135px; height:36px; line-height:36px; color:#fff; font-size:18px;
-font-weight:bold; background:#db0e0e; float:right; display:block;">
+                                <a href="javascript:;" id="checkout" style="width:135px; height:36px; line-height:36px; color:#fff; font-size:18px;
+font-weight:bold; background:#db0e0e; float:right; display:block; text-indent:0; text-align:center;">
                                     去结算
                                 </a>
                             </div>

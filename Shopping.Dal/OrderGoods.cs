@@ -15,11 +15,12 @@ namespace Shopping.Dal
     public partial class OrderGoods
     {
         public int ID { get; set; }
-        public Nullable<int> OrderID { get; set; }
-        public Nullable<int> GoodsID { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public int OrderID { get; set; }
+        public int GoodsID { get; set; }
+        public decimal Price { get; set; }
+        public int BuyCount { get; set; }
     
-        public virtual ShoppingOrder ShoppingOrder { get; set; }
         public virtual Goods Goods { get; set; }
+        public virtual ShoppingOrder ShoppingOrder { get; set; }
     }
 }

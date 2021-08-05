@@ -23,6 +23,7 @@ using Spire;
 using Spire.Xls;
 using System.Drawing;
 using System.Collections.Specialized;
+using Snowflake.Core;
 
 namespace ConsoleApp1
 {
@@ -30,6 +31,19 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            var worker = new IdWorker(1, 1);
+
+            for (int i = 0; i < 1000; i++)
+            {
+                long id = worker.NextId();
+                Console.WriteLine($"{id}长度：{id.ToString().Length}");
+
+            }
+
+            
+
+            Console.ReadLine();
+
             NameValueCollection a = ConfigurationManager.AppSettings;
 
             SqlParameter parm = new SqlParameter("@ID", DBNull.Value);

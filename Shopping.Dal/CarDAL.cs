@@ -30,6 +30,32 @@ namespace Shopping.Dal
         }
 
         /// <summary>
+        /// 批量添加购物车
+        /// </summary>
+        /// <param name="carModel"></param>
+        /// <returns></returns>
+        public bool BulkAddCar(List<CarModel> carModel)
+        {
+            try
+            {
+                ShoppingEntities db = new ShoppingEntities();
+
+                foreach (var item in carModel)
+                {
+                    db.ShoppingCar.Add(new ShoppingCar { GoodsID = item.GoodsID, BuyCount = item.BuyCount, UserID = item.UserID });
+                }
+
+                db.SaveChanges();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 获取购物车商品
         /// </summary>
         /// <param name="UserID"></param>
@@ -100,6 +126,28 @@ namespace Shopping.Dal
             db.ShoppingCar.Where(m => idList.Contains(m.GoodsID) && m.UserID == UserID).Delete();
 
             return GetCar(UserID);
+        }
+
+        /// <summary>
+        /// 根据购物车表和商品表，得到某个用户选择（要）购买的商品
+        /// </summary>
+        /// <param name="idList"></param>
+        /// <returns></returns>
+        public List<OrderGoodsModel> GetOrderGoods(int[] idList, int UserID)
+        {
+            ShoppingEntities db = new ShoppingEntities();
+
+            var list = db.Goods.Join(db.ShoppingCar.Where(m => m.UserID == UserID), 
+                a => a.GoodsID, 
+                b => b.GoodsID, 
+                (a, b) => new OrderGoodsModel
+                {
+                    BuyCount = b.BuyCount,
+                    GoodsID = a.GoodsID,
+                    Price = a.Price
+                }).AsQueryable().Where(m => idList.Contains(m.GoodsID)).ToList();
+
+            return list;
         }
 
         /// <summary>

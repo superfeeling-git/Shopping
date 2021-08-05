@@ -99,6 +99,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="OrderDAL.cs" />
     <Compile Include="OrderGoods.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -122,9 +123,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ShoppingOrder.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagrams.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">

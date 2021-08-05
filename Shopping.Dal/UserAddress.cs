@@ -15,7 +15,7 @@ namespace Shopping.Dal
     public partial class UserAddress
     {
         public int AddressID { get; set; }
-        public Nullable<int> UserID { get; set; }
+        public int UserID { get; set; }
         public string FullName { get; set; }
         public string Province { get; set; }
         public string City { get; set; }
